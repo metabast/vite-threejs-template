@@ -9,6 +9,7 @@
   "dependencies": {
     "gsap": "^3.8.0",
     "nanoevents": "^7.0.1",
+    "stats.js": "^0.17.0",
     "three": "^0.135.0",
     "vite-plugin-glsl": "^0.0.5",
     "vue": "^3.2.16"

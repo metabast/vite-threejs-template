@@ -2,8 +2,13 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
 import Content from './Content.js';
 import Resize from '../../commons/Resize.js'
+//import stats.js
+import Stats from 'stats.js';
 	
 export default function World(){
+		const stats = new Stats();
+		stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+		document.body.appendChild(stats.dom);
 
 		const canvas = document.querySelector('canvas.webgl');
 		const scene = new THREE.Scene();
@@ -31,9 +36,11 @@ export default function World(){
 
 
 		function animate(){
+			stats.begin();
 			control.update();
 			content.update(clock);
 			renderer.render(scene, camera);
+			stats.end();
 			requestAnimationFrame(animate);
 		}
 		animate();
