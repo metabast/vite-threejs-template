@@ -1,48 +1,20 @@
 import * as THREE from 'three';
+import Events from '../../commons/Events';
 
-// SHADERS
-import vertexShader from './shaders/default-vertex.glsl';
-import fragmentShader from './shaders/default-fragment.glsl';
-
-const matShader = new THREE.ShaderMaterial({
-    uniforms:{
-        uTime: {value: 1.0}
-    },
-    vertexShader: vertexShader,
-    fragmentShader: fragmentShader,
-    // transparent: true,
-    side: THREE.DoubleSide,
-})
-
-const geometry = new THREE.PlaneGeometry(1, 1);
-const mesh = new THREE.Mesh(geometry, matShader);
-mesh.position.x = -.51;
-
-// SHADERS
-import vertexRawShader from './shaders/raw-vertex.glsl';
-import fragmentRawShader from './shaders/raw-fragment.glsl';
-
-const matRawShader = new THREE.RawShaderMaterial({
-    vertexShader: vertexRawShader,
-    fragmentShader: fragmentRawShader,
-    uniforms:{
-        uTime: {value: 1.0}
-    },
-    transparent: false,
-    side: THREE.DoubleSide,
-})
-
-const geometryRaw = new THREE.PlaneGeometry(1, 1);
-const meshRaw = new THREE.Mesh(geometryRaw, matRawShader);
-meshRaw.position.x = .51;
+const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.1, 100, 16);
+const torusKnotMaterial = new THREE.MeshMatcapMaterial();
+torusKnotMaterial.matcap = new THREE.TextureLoader();
+const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
 
 function Content(scene){
-	scene.add(mesh);
-    scene.add(meshRaw);
+
+    scene.add(torusKnot);
+    Events.on('matcap:updateFromEditor', (matcapURL) => {
+        torusKnot.material.matcap = new THREE.TextureLoader().load(matcapURL);
+    });
 	return {
 		update(clock){
-            matShader.uniforms.uTime.value = clock.getElapsedTime();
-            matRawShader.uniforms.uTime.value = clock.getElapsedTime();
+
 		}
 	}
 }
