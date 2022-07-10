@@ -264,6 +264,11 @@ magic-string@^0.25.7:
   dependencies:
     sourcemap-codec "^1.4.4"
 
+nanoevents@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/nanoevents/-/nanoevents-7.0.1.tgz#181580b47787688d8cac775b977b1cf24e26e570"
+  integrity sha512-o6lpKiCxLeijK4hgsqfR6CNToPyRU3keKyyI6uwuHRvpRTbZ0wXw51WRgyldVugZqoJfkGFrjrIenYH3bfEO3Q==
+
 nanoid@^3.1.30:
   version "3.1.30"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.30.tgz#63f93cc548d2a113dc5dfbc63bfa09e2b9b64362"
