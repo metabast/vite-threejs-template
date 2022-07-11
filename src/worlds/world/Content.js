@@ -1,22 +1,34 @@
 import * as THREE from 'three';
 import Events from '../../commons/Events';
+import World from './World';
 
-const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.1, 100, 16);
+
+
+const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.1, 256, 32);
 const torusKnotMaterial = new THREE.MeshMatcapMaterial();
-torusKnotMaterial.matcap = new THREE.TextureLoader();
+const matcapLoader = new THREE.TextureLoader();
+torusKnotMaterial.matcap = matcapLoader;
 const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
 
-function Content(scene){
+class Content{
+    constructor(){
+        this.scene = World.getInstance().scene;
+        this.scene.add(torusKnot);
+        Events.on('matcap:updateFromEditor', this.onmatcapUpdated.bind(this));
+    }
+    
+    onmatcapUpdated(matcapURL){
+        matcapLoader.load(matcapURL, (texture)=>{
+            console.log("refresh");
+            torusKnot.material.matcap = texture;
+        });
+    }
 
-    scene.add(torusKnot);
-    Events.on('matcap:updateFromEditor', (matcapURL) => {
-        torusKnot.material.matcap = new THREE.TextureLoader().load(matcapURL);
-    });
-	return {
-		update(clock){
-
-		}
-	}
+    update(clock){
+        torusKnot.rotation.x += 0.01;
+        torusKnot.rotation.y += 0.01;
+        torusKnot.rotation.z += 0.01;
+    }
 }
 
 export default Content;

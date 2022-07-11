@@ -1,36 +1,39 @@
-<script>
+<script setup>
+import {onMounted} from 'vue';
+import WorldMatcapPreview from '../worlds/world/World.js' 
+import WorldMatcapEditor from '../worlds/world-matcap-editor/World.js' 
+import Events from '../commons/Events.js';
+
 if (import.meta.hot) {
     import.meta.hot.dispose( (data) => {
         import.meta.hot.invalidate();
     } )
 }
-import {onMounted} from 'vue';
-import World from '../worlds/world/World.js' 
-import World2 from '../worlds/world-matcap-editor/World.js' 
-export default {
-  setup(){
-    onMounted( mounted );
-  }
+
+onMounted (()=>{
+  WorldMatcapPreview.getInstance().init();
+  WorldMatcapEditor.getInstance().init();
+})
+
+const onMouseOverWorldMatcapPreview = (event)=>{
+  Events.emit("focus:changed", "world-matcap-preview");
 }
 
-function mounted(){
-  new World();
-  new World2();
+const onMouseOverWorldMatcapEditor= (event)=>{
+  Events.emit("focus:changed", "world-matcap-editor");
 }
-
-
 
 </script>
 
 <template>
-  <canvas class="webgl"></canvas>
-  <canvas class="webgl2"></canvas>
+  <canvas class="webgl" @mouseover="onMouseOverWorldMatcapPreview"></canvas>
+  <canvas class="webgl2" @mouseover="onMouseOverWorldMatcapEditor"></canvas>
 </template>
 
 <style scoped>
 .webgl{
   outline: none;
-  background-color: black;
+  background-color: white;
 }
 .webgl2{
   position: absolute;
@@ -38,8 +41,8 @@ function mounted(){
   right: 0;
   outline: none;
   background-color: black;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   border: 1px solid white;
 }
 </style>

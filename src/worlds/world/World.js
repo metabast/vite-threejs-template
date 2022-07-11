@@ -2,46 +2,56 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
 import Content from './Content.js';
 import Resize from '../../commons/Resize.js'
-//import stats.js
-import Stats from 'stats.js';
-	
-export default function World(){
-		const stats = new Stats();
-		stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-		document.body.appendChild(stats.dom);
+import Stats from '../../commons/Stats.js';
 
-		const canvas = document.querySelector('canvas.webgl');
-		const scene = new THREE.Scene();
-		const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-		
-		const renderer = new THREE.WebGLRenderer({
-			canvas: canvas,
+class World{
+	constructor() {
+	}
+
+	init() {
+		this.stats = Stats.getStats();
+
+		this.canvas = document.querySelector('canvas.webgl');
+		this.scene = new THREE.Scene();
+		this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		// scene.background = new THREE.Color(0xffffff);
+		this.renderer = new THREE.WebGLRenderer({
+			canvas: this.canvas,
 			antialias: true,
 		});
-		renderer.setSize( window.innerWidth, window.innerHeight );
+		this.renderer.setSize( window.innerWidth, window.innerHeight );
 
-		const control = new OrbitControls(camera, renderer.domElement)
-		control.enableDamping = true;
-		camera.position.set( 0, 0, 2 );
+		this.control = new OrbitControls(this.camera, this.renderer.domElement)
+		this.control.enableDamping = true;
+		this.camera.position.set( 0, 0, 2 );
 
-		const clock = new THREE.Clock();
+		this.clock = new THREE.Clock();
 
-		// 
-		const content = new Content(scene);
+		this.content = new Content(this.scene);
 
 		Resize.getInstance()
-			.updateCanvas(canvas)
-			.updateCamera(camera)
-			.updateRenderer(renderer);	
+			.updateCanvas(this.canvas)
+			.updateCamera(this.camera)
+			.updateRenderer(this.renderer);
+
+		this.tick();
+	}
+
+	tick() {
+		this.stats.begin();
+		this.control.update();
+		this.content.update(this.clock);
+		this.renderer.render(this.scene, this.camera);
+		this.stats.end();
+		requestAnimationFrame(this.tick.bind(this));
+	}
 
 
-		function animate(){
-			stats.begin();
-			control.update();
-			content.update(clock);
-			renderer.render(scene, camera);
-			stats.end();
-			requestAnimationFrame(animate);
+	static getInstance() {
+		if (!World.instance) {
+			World.instance = new World();
 		}
-		animate();
+		return World.instance;
+	}
 }
+export default World;
