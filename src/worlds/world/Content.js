@@ -19,7 +19,6 @@ class Content{
     
     onmatcapUpdated(matcapURL){
         matcapLoader.load(matcapURL, (texture)=>{
-            console.log("refresh");
             torusKnot.material.matcap = texture;
         });
     }

@@ -60,16 +60,17 @@ class Content{
             const pointLight = new THREE.PointLight( 0xffffff, .5 );
             pointLight.position.x = intersects[0].point.x;
             pointLight.position.y = intersects[0].point.y;
-            pointLight.position.z = intersects[0].point.z;
+            pointLight.position.z = intersects[0].point.z + .1;
             this.scene.add( pointLight );
 
             // plane.material.opacity = 1;
             this.renderer.render(this.scene, cameraSnapshot);
             // plane.material.opacity = 0;
+            console.log(pointLight.position.clone().unproject(this.camera));
             
             this.renderer.domElement.toBlob(this.onBlobReady.bind(this), 'image/png', 1.0);
         }
-        console.log(intersects);
+        // console.log(intersects);
     }
 
     onBlobReady(blob){
