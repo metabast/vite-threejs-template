@@ -47,6 +47,12 @@ class Content{
 
     onFocusChanged(focusName){
         this.isFocused = focusName === 'world-matcap-editor';
+        console.log("this.isFocused", this.isFocused);
+        if(this.isFocused){
+            this.camera.add(cameraSnapshot);
+        }else{
+            this.camera.remove(cameraSnapshot);
+        }
     }
 
     onPointerDown(event){
@@ -66,7 +72,17 @@ class Content{
             // plane.material.opacity = 1;
             this.renderer.render(this.scene, cameraSnapshot);
             // plane.material.opacity = 0;
-            console.log(pointLight.position.clone().unproject(this.camera));
+            // console.log(pointLight.position.clone());
+
+            const vectorFor2d = pointLight.position.clone();
+            vectorFor2d.z = 0;
+            vectorFor2d.unproject(this.camera);
+            const screenVector = vectorFor2d.multiplyScalar(2).addScalar(.5).multiplyScalar(200);
+            Events.emit('matcap:editor:light:added', {
+                x: screenVector.x,
+                y: screenVector.y,
+                light : pointLight,
+            });
             
             this.renderer.domElement.toBlob(this.onBlobReady.bind(this), 'image/png', 1.0);
         }

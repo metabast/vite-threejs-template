@@ -3,6 +3,7 @@ import {onMounted} from 'vue';
 import WorldMatcapPreview from '../worlds/world/World.js' 
 import WorldMatcapEditor from '../worlds/world-matcap-editor/World.js' 
 import Events from '../commons/Events.js';
+import MatcapLights from './MatcapLights.vue';
 
 if (import.meta.hot) {
     import.meta.hot.dispose( (data) => {
@@ -28,6 +29,7 @@ const onMouseOverWorldMatcapEditor= (event)=>{
 <template>
   <canvas class="webgl" @mouseover="onMouseOverWorldMatcapPreview"></canvas>
   <canvas class="webgl2" @mouseover="onMouseOverWorldMatcapEditor"></canvas>
+  <MatcapLights @mouseover="onMouseOverWorldMatcapEditor"/>
 </template>
 
 <style scoped>
