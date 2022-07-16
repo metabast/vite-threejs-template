@@ -18,7 +18,7 @@ const lightAdded = (screenVector)=>{
 Events.on('matcap:editor:light:added', lightAdded);
 
 const getCSSPosition = (screenVector)=>{
-    return `left:${screenVector.x - 5}px; top:${200-screenVector.y - 5}px;`;
+    return `left:${screenVector.x - 5}px; top:${screenVector.y - 5}px;`;
 }
 
 const onMouseOver = (event)=>{

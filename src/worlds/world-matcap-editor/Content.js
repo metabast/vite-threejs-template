@@ -5,6 +5,7 @@ const size = .28;
 import vertexShader from './shaders/default-vertex.glsl';
 import fragmentShader from './shaders/default-fragment.glsl';
 import World from './World';
+import { getScreenPosition } from '../../commons/VectorHelper';
 
 const cameraSnapshot = new THREE.OrthographicCamera( -size, size, size, -size, .5, 200 );
 cameraSnapshot.position.set( 0, 0, 1 );
@@ -69,15 +70,9 @@ class Content{
             pointLight.position.z = intersects[0].point.z + .1;
             this.scene.add( pointLight );
 
-            // plane.material.opacity = 1;
             this.renderer.render(this.scene, cameraSnapshot);
-            // plane.material.opacity = 0;
-            // console.log(pointLight.position.clone());
 
-            const vectorFor2d = pointLight.position.clone();
-            vectorFor2d.z = 0;
-            vectorFor2d.unproject(this.camera);
-            const screenVector = vectorFor2d.multiplyScalar(2).addScalar(.5).multiplyScalar(200);
+            const screenVector = getScreenPosition(pointLight.position, this.camera, 200,200);
             Events.emit('matcap:editor:light:added', {
                 x: screenVector.x,
                 y: screenVector.y,
@@ -86,7 +81,6 @@ class Content{
             
             this.renderer.domElement.toBlob(this.onBlobReady.bind(this), 'image/png', 1.0);
         }
-        // console.log(intersects);
     }
 
     onBlobReady(blob){
