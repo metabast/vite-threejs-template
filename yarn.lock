@@ -62,6 +62,11 @@
     "@vue/compiler-dom" "3.2.23"
     "@vue/shared" "3.2.23"
 
+"@vue/devtools-api@^6.0.0-beta.11":
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.2.1.tgz#6f2948ff002ec46df01420dfeff91de16c5b4092"
+  integrity sha512-OEgAMeQXvCoJ+1x8WyQuVZzFo0wcyCmUR3baRVLmKBo1LmYZWMlRiXlux5jd0fqVJu6PfDbOrZItVqUEzLobeQ==
+
 "@vue/reactivity@3.2.23":
   version "3.2.23"
   resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.2.23.tgz#d2f10749d554f7e94d8d52f36e7e6a0b021a2418"
@@ -333,6 +338,11 @@ stats.js@^0.17.0:
   resolved "https://registry.yarnpkg.com/stats.js/-/stats.js-0.17.0.tgz#b1c3dc46d94498b578b7fd3985b81ace7131cc7d"
   integrity sha512-hNKz8phvYLPEcRkeG1rsGmV5ChMjKDAWU7/OJJdDErPBNChQXxCo3WZurGpnWc6gZhAzEPFad1aVgyOANH1sMw==
 
+three-mesh-bvh@^0.5.14:
+  version "0.5.14"
+  resolved "https://registry.yarnpkg.com/three-mesh-bvh/-/three-mesh-bvh-0.5.14.tgz#605654cf802b3e92ea7b18997535960d04344159"
+  integrity sha512-rSk7SpKDR47m1PmkUxt5na5+dM4h0KW5zF43lMniZGjT4hQn9Om+g64ooFreFIWlQlrNN8pFqiPnDMRZS58/Yw==
+
 three@^0.135.0:
   version "0.135.0"
   resolved "https://registry.yarnpkg.com/three/-/three-0.135.0.tgz#cff4ec8edd3c51ce9bc7e88d13e8eafed4d0ddfc"
@@ -342,6 +352,11 @@ tslib@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
+
+uil@^4.2.6:
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/uil/-/uil-4.2.6.tgz#b46a69636ba2aadea58b8a37a96aeb6c920d4058"
+  integrity sha512-6aDhH8hBzW0wgL3WxSj9AIKLNneCkMp7neCA1nVfWJYoSFc7Hjt/HnCw/H4AAwyhMf/CmQwzR8aT/n9FMWYphg==
 
 vite-plugin-glsl@^0.0.5:
   version "0.0.5"
@@ -373,3 +388,10 @@ vue@^3.2.16:
     "@vue/runtime-dom" "3.2.23"
     "@vue/server-renderer" "3.2.23"
     "@vue/shared" "3.2.23"
+
+vuex@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-4.0.2.tgz#f896dbd5bf2a0e963f00c67e9b610de749ccacc9"
+  integrity sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==
+  dependencies:
+    "@vue/devtools-api" "^6.0.0-beta.11"

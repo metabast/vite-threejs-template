@@ -2,6 +2,7 @@
 import Events from '../commons/Events.js';
 import * as THREE from 'three';
 import {reactive, ref} from 'vue';
+import store from '../store/index.js';
 
 if (import.meta.hot) {
     import.meta.hot.dispose( (data) => {
@@ -18,7 +19,7 @@ const lightAdded = (screenVector)=>{
 Events.on('matcap:editor:light:added', lightAdded);
 
 const getCSSPosition = (screenVector)=>{
-    return `left:${screenVector.x - 5}px; top:${screenVector.y - 5}px;`;
+    return `left:${screenVector.x - 6}px; top:${screenVector.y - 6}px;`;
 }
 
 const onMouseOver = (event)=>{
@@ -38,11 +39,18 @@ const onMouseMove = (event, b)=>{
     console.log('mouse move', event, b);
 }
 
+const getMatcapLightsStyle = ()=>{
+    return `
+        width: ${store.state.matcapEditor.size.width}px;
+        height: ${store.state.matcapEditor.size.height}px;
+    `;
+}
+
 
 </script>
 
 <template>
-    <div id="matcapLights">
+    <div id="matcapLights" :style="getMatcapLightsStyle()">
         <div 
             v-for="light in lights" 
             class="light" 
@@ -58,18 +66,19 @@ const onMouseMove = (event, b)=>{
         position: absolute;
         top: 0;
         right: 0;
-        width: 200px;
-        height: 200px;
-        /* touch-action: none;
-        pointer-events: none; */
+        pointer-events: none; 
     }
     .light{
         position: absolute;
-        background-color: white;
+        background-color: black;
         width: 10px;
         height: 10px;
-        border-radius: 5px;
-        /* touch-action: none;
-        pointer-events: all; */
+        border-radius: 10px;
+        touch-action: none;
+        pointer-events: all;
+        border: 1px solid rgba(255, 255, 255, 0.425);
+    }
+    .light:hover{
+        background-color: rgba(255, 255, 255, 0.233);
     }
 </style>

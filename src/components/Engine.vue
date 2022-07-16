@@ -27,9 +27,9 @@ const onMouseOverWorldMatcapEditor= (event)=>{
 </script>
 
 <template>
-  <canvas class="webgl" @mouseover="onMouseOverWorldMatcapPreview"></canvas>
-  <canvas class="webgl2" @mouseover="onMouseOverWorldMatcapEditor"></canvas>
-  <MatcapLights @mouseover="onMouseOverWorldMatcapEditor"/>
+  <canvas class="webgl"></canvas>
+  <canvas class="webgl2"></canvas>
+  <MatcapLights/>
 </template>
 
 <style scoped>

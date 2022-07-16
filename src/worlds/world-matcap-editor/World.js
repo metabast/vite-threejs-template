@@ -3,6 +3,7 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
 import Content from './Content.js';
 import Resize from '../../commons/Resize.js'
 import Stats from '../../commons/Stats.js';
+import store from '../../store';
 
 class World{
 	constructor() {
@@ -20,7 +21,7 @@ class World{
 			canvas: this.canvas,
 			antialias: true,
 		});
-		this.renderer.setSize( 200, 200 );
+		this.renderer.setSize( store.state.matcapEditor.size.width, store.state.matcapEditor.size.height );
 
 		this.camera.position.set( 0, 0, 1 );
 

@@ -11,8 +11,11 @@
     "nanoevents": "^7.0.1",
     "stats.js": "^0.17.0",
     "three": "^0.135.0",
+    "three-mesh-bvh": "^0.5.14",
+    "uil": "^4.2.6",
     "vite-plugin-glsl": "^0.0.5",
-    "vue": "^3.2.16"
+    "vue": "^3.2.16",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",
