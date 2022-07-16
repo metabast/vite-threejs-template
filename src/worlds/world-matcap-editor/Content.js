@@ -101,49 +101,4 @@ class Content{
     }
 }
 
-
-function Content2(renderer, scene, camera){
-    scene.add(plane);
-    scene.add(sphere);
-    scene.add( light );
-
-    const onPointerDown = (event) => {
-        pointer.set(( event.offsetX / 200 ) * 2 - 1, - ( event.offsetY / 200 ) * 2 + 1);
-        raycaster.setFromCamera( pointer, camera );
-        const intersects = raycaster.intersectObjects( scene.children );
-        if(intersects.length > 0){
-            const light2 = new THREE.PointLight( 0xffffff, .5 );
-            light2.position.x = intersects[0].point.x;
-            light2.position.y = intersects[0].point.y;
-            light2.position.z = intersects[0].point.z + .1;
-            scene.add( light2 );
-
-            plane.material.opacity = 1;
-            renderer.render(scene, cameraSnapshot);
-            plane.material.opacity = 0;
-            
-            renderer.domElement.toBlob(function(blob){
-                var a = document.createElement('a');
-                var url = URL.createObjectURL(blob);
-                Events.emit('matcap:updateFromEditor', url);
-                // a.href = url;
-                // a.download = 'canvas.png';
-                // a.click();
-            }, 'image/png', 1.0);
-
-            // var canvas2 = document.querySelector('canvas.webgl2');
-            // var ctx = canvas2.getContext('2d');
-            console.log(renderer);
-        }
-        console.log(intersects);
-    }
-    
-    document.addEventListener( 'pointerdown', onPointerDown );
-
-	return {
-		update(clock){
-		}
-	}
-}
-
 export default Content;
