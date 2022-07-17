@@ -11,13 +11,21 @@ if (import.meta.hot) {
     } )
 }
 const lights = reactive([]);
+let currentLight = null;
 
 const lightAdded = (screenVector)=>{
     // console.log('light added', screenVector);
+    gr.clear();
+    
+    gr.add(screenVector.light, 'intensity', {min:0, max:10, step:0.01})
+    .onChange(()=>{
+        Events.emit('matcap:snapshot');
+    });
+    gr.open();
     lights.push(screenVector);
 }
 
-Events.on('matcap:editor:light:added', lightAdded);
+
 
 const getCSSPosition = (screenVector)=>{
     return `left:${screenVector.x - 6}px; top:${screenVector.y - 6}px;`;
@@ -51,7 +59,9 @@ const gui = new Gui({css:`
     top: 202px;
     right: 0px;
 `, w:200});
-
+gui.add('button', {name:'export png'}).onChange(()=>{
+        Events.emit('matcap:export:png');
+    });
 gui.add( store.state.matcapEditor.create, 'front');
 gui.add( 'grid', { values:['Point','Spot', 'Area'], selectable:true, value:store.state.matcapEditor.create.lightType })
 .onChange( (value)=>{
@@ -61,6 +71,10 @@ gui.add(store.state.matcapEditor.create, 'distance', {min:0, max:10, step:.1});
 gui.add(store.state.matcapEditor.create, 'intensity', {min:0, max:10, step:.1});
 gui.add(store.state.matcapEditor.create, 'color', { ctype:'hex' });
 
+let gr = gui.add( 'group', { name:'current light', h:30 });
+
+
+Events.on('matcap:editor:light:added', lightAdded);
 
 </script>
 

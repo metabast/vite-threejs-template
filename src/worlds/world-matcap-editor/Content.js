@@ -53,6 +53,9 @@ class Content{
         this.world.canvas.addEventListener( 'mouseout', this.onMouseOut.bind(this) );
         this.pointerDownListener = this.onPointerDown.bind(this);
         this.pointerMoveListener = this.onPointerMove.bind(this);
+
+        Events.on('matcap:snapshot', this.snapshot.bind(this));
+        Events.on('matcap:export:png', this.exportPNG.bind(this));
         // this.world.canvas.addEventListener( 'pointerdown', this.onPointerDown.bind(this) );
     }
 
@@ -117,7 +120,6 @@ class Content{
         this.pointOnSphere = this.hitSphere.point.clone();
         
         this.lightPosition = this.hitSphere.point.clone();
-        console.log(store.state.matcapEditor.create.distance);
         this.lightPosition.add( this.hitSphere.face.normal.clone().multiplyScalar(storeCreate.distance) );
         const pointLight = new THREE.PointLight( Number(storeCreate.color), storeCreate.intensity );
         pointLight.position.x = this.lightPosition.x;
@@ -131,9 +133,7 @@ class Content{
         // console.log(pointLight);
         this.scene.add( pointLight );
 
-        this.arrowHelper.visible = false;
-        this.renderer.render(this.scene, cameraSnapshot);
-        this.arrowHelper.visible = true;
+        
         
         const screenVector = getScreenPosition(
             this.pointOnSphere.add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
@@ -148,18 +148,36 @@ class Content{
             light : pointLight,
         });
         
+        this.snapshot();
+    }
+    
+    snapshot() {
+        this.arrowHelper.visible = false;
+        this.renderer.render(this.scene, cameraSnapshot);
+        this.arrowHelper.visible = true;
         this.renderer.domElement.toBlob(this.onBlobReady.bind(this), 'image/png', 1.0);
     }
 
     onBlobReady(blob){
-        const a = document.createElement('a');
         const url = URL.createObjectURL(blob);
+        this.blobURL = url;
         Events.emit('matcap:updateFromEditor', url);
-        if(this.downloadMatcap){
-            a.href = url;
-            a.download = 'canvas.png';
-            a.click();
+    }
+
+    exportPNG(){
+        if(!this.blobURL)
+            return;
+        const a = document.createElement('a');
+        a.href = this.blobURL;
+        a.download = 'matcap.png';
+        a.click();
+    }
+
+    static getInstance(){
+        if(!Content.instance){
+            Content.instance = new Content();
         }
+        return Content.instance;
     }
 }
 

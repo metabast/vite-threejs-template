@@ -27,7 +27,7 @@ class World{
 
 		this.clock = new THREE.Clock();
 
-		this.content = new Content();
+		this.content = Content.getInstance();
 
 		this.tick();
 	}
