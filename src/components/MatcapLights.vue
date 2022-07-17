@@ -21,6 +21,11 @@ const lightAdded = (screenVector)=>{
     .onChange(()=>{
         Events.emit('matcap:snapshot');
     });
+    gr.add(screenVector, 'distance', {min:0, max:10, step:0.01})
+    .onChange(()=>{
+        Events.emit('matcap:light:update:distance', screenVector);
+    });
+    
     gr.open();
     lights.push(screenVector);
 }

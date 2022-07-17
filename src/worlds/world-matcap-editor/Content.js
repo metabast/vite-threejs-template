@@ -56,6 +56,7 @@ class Content{
 
         Events.on('matcap:snapshot', this.snapshot.bind(this));
         Events.on('matcap:export:png', this.exportPNG.bind(this));
+        Events.on('matcap:light:update:distance', this.updateLightDistance.bind(this));
         // this.world.canvas.addEventListener( 'pointerdown', this.onPointerDown.bind(this) );
     }
 
@@ -117,7 +118,7 @@ class Content{
         if(!this.hitSphere)
             return;
         
-        this.pointOnSphere = this.hitSphere.point.clone();
+        const pointOnSphere = this.hitSphere.point.clone();
         
         this.lightPosition = this.hitSphere.point.clone();
         this.lightPosition.add( this.hitSphere.face.normal.clone().multiplyScalar(storeCreate.distance) );
@@ -136,7 +137,7 @@ class Content{
         
         
         const screenVector = getScreenPosition(
-            this.pointOnSphere.add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
+            pointOnSphere.clone().add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
             this.camera,
             store.state.matcapEditor.size.width,
             store.state.matcapEditor.size.height
@@ -144,9 +145,24 @@ class Content{
         Events.emit('matcap:editor:light:added', {
             x: screenVector.x,
             y: screenVector.y,
-            pointOnSphere: this.pointOnSphere,
+            pointOnSphere,
+            distance: Number(storeCreate.distance),
             light : pointLight,
+            normal: this.hitSphere.face.normal.clone(),
         });
+        
+        this.snapshot();
+    }
+
+    updateLightDistance(matcapLight){
+        const lightPosition = matcapLight.pointOnSphere.clone();
+        lightPosition.add( matcapLight.normal.clone().multiplyScalar(matcapLight.distance) );
+        matcapLight.light.position.x = lightPosition.x;
+        matcapLight.light.position.y = lightPosition.y;
+        if(store.state.matcapEditor.create.front)
+            matcapLight.light.position.z = lightPosition.z;
+        else
+            matcapLight.light.position.z = -lightPosition.z;
         
         this.snapshot();
     }
