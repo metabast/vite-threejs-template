@@ -38,19 +38,28 @@ const getCSSPosition = (screenVector)=>{
 
 const onMouseOver = (event)=>{
     // console.log("onMouseOver");
-    Events.emit("focus:changed", "world-matcap-editor-light");
+    // Events.emit("focus:changed", "world-matcap-editor-light");
+    event.target.removeEventListener('mousemove', onMouseMove);
 }
 
-const onMouseDown = (event)=>{
-    // console.log('mouse down', event);
+const onMouseDown = (event, light)=>{
+    // console.log('mouse down', event.target);
+    event.target.addEventListener('mousemove', onMouseMove);
+    event.target.addEventListener('mouseup', onMouseUp);
+    
+    event.target.style.pointerEvents = 'none'
+    Events.emit("light:startPointermove", light.light);
 }
 
 const onMouseUp = (event)=>{
-    // console.log('mouse up', event);
+    console.log('mouse up', event);
+    event.target.removeEventListener('mousemove', onMouseMove);
 }
 
 const onMouseMove = (event, b)=>{
-    // console.log('mouse move', event, b);
+    console.log('mouse move', event);
+    // event.target.style.left = `${event.clientX}px`;
+    // console.log(event.target);
 }
 
 const getMatcapLightsStyle = ()=>{
@@ -91,8 +100,8 @@ Events.on('matcap:editor:light:added', lightAdded);
                 :key="index"
                 class="light" 
                 :style="getCSSPosition(light)"
-                @mouseover="onMouseOver"
-                @mousedown="onMouseDown(light)"
+                @mouseover="onMouseOver($event, light)"
+                @mousedown="onMouseDown($event, light)"
             ></div>
         </div>
         <div id="matcapLightsOptions">

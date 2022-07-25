@@ -57,6 +57,9 @@ class Content{
         Events.on('matcap:snapshot', this.snapshot.bind(this));
         Events.on('matcap:export:png', this.exportPNG.bind(this));
         Events.on('matcap:light:update:distance', this.updateLightDistance.bind(this));
+        Events.on('light:startPointermove', (light)=>{
+            this.currentLight = light;
+        })
         // this.world.canvas.addEventListener( 'pointerdown', this.onPointerDown.bind(this) );
     }
 
@@ -104,6 +107,20 @@ class Content{
         this.arrowHelper.setLength( .1 );
         this.arrowHelper.position.copy(hit2.point);
         this.hitSphere = hit2;
+
+        if(this.currentLight) {
+            this.lightPosition = this.hitSphere.point.clone();
+            this.lightPosition.add( this.hitSphere.face.normal.clone().multiplyScalar(storeCreate.distance) );
+            this.currentLight.position.x = this.lightPosition.x;
+            this.currentLight.position.y = this.lightPosition.y;
+            if(store.state.matcapEditor.create.front)
+                this.currentLight.position.z = this.lightPosition.z;
+            else
+                this.currentLight.position.z = -this.lightPosition.z;
+            
+            this.currentLight.lookAt( 0, 0, 0 );
+        }
+
     }
 
     onMouseOut(event){
@@ -127,7 +144,7 @@ class Content{
         pointLight.position.y = this.lightPosition.y;
         if(store.state.matcapEditor.create.front)
             pointLight.position.z = this.lightPosition.z;
-            else
+        else
             pointLight.position.z = -this.lightPosition.z;
         
         pointLight.lookAt( 0, 0, 0 );
