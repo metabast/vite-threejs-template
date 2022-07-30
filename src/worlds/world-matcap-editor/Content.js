@@ -18,12 +18,14 @@ planeMaterial.transparent = true;
 planeMaterial.opacity = 1;
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
+const widthSegments = 256;
+const heightSegments = widthSegments / (4 / 3);
 
-const sphereRenderGeometry = new THREE.SphereGeometry(0.3, 64, 48);
+const sphereRenderGeometry = new THREE.SphereGeometry(0.3, widthSegments, heightSegments);
 const sphereRenderMaterial = new THREE.MeshPhysicalMaterial({color: 0xffffff});
 const sphereRender = new THREE.Mesh(sphereRenderGeometry, sphereRenderMaterial);
 
-const sphereNormalGeometry = new THREE.SphereGeometry(0.4, 64, 48);
+const sphereNormalGeometry = new THREE.SphereGeometry(0.4, widthSegments, heightSegments);
 const sphereNormalMaterial = new THREE.MeshNormalMaterial    ({color: 0xffffff, opacity:0, transparent:true});
 const sphereNormal = new THREE.Mesh(sphereNormalGeometry, sphereNormalMaterial);
 
@@ -41,6 +43,9 @@ class Content{
         this.renderer = World.getInstance().renderer;
         this.scene = World.getInstance().scene;
         this.camera = World.getInstance().camera;
+
+        sphereRender.geometry.computeBoundsTree();
+        sphereNormal.geometry.computeBoundsTree();
 
         this.scene.add(plane);
         this.scene.add(sphereRender);

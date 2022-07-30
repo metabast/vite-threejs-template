@@ -1,9 +1,15 @@
 import * as THREE from 'three';
+import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast, MeshBVHVisualizer } from 'three-mesh-bvh';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
 import Content from './Content.js';
 import Resize from '../../commons/Resize.js'
 import Stats from '../../commons/Stats.js';
 import store from '../../store';
+import { BufferGeometry, Mesh } from 'three';
+
+BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
+Mesh.prototype.raycast = acceleratedRaycast;
 
 class World{
 	constructor() {
