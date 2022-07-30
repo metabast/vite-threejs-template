@@ -53,6 +53,17 @@ class Content{
         this.scene.add(sphereRender);
         this.scene.add(sphereNormal);
 
+        this.ambiantLight = new THREE.AmbientLight( 0x000000 );
+		this.ambiantLight.intensity = store.state.matcapEditor.ambiant.intensity;
+		this.ambiantLight.color = store.state.matcapEditor.ambiant.color;
+		this.scene.add( this.ambiantLight );
+
+		Events.on('matcap:ambiant:update', () => {
+			this.ambiantLight.intensity = store.state.matcapEditor.ambiant.intensity;
+			this.ambiantLight.color = store.state.matcapEditor.ambiant.color;
+            this.snapshot();
+		});
+
         this.arrowHelper = new THREE.ArrowHelper( new Vector3(), new Vector3(), this.length, '#ff0000' );
         this.scene.add( this.arrowHelper );
 

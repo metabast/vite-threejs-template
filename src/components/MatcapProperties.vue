@@ -9,6 +9,8 @@ if (import.meta.hot) {
     } )
     
 }
+
+const lights = store.state.matcapEditor.lights;
 const gui = new Gui({css:`
     top: 202px;
     right: 0px;
@@ -24,6 +26,18 @@ gui.add( 'grid', { values:['Point','Spot', 'Area'], selectable:true, value:store
 gui.add(store.state.matcapEditor.create, 'distance', {min:0, max:10, step:.1});
 gui.add(store.state.matcapEditor.create, 'intensity', {min:0, max:10, step:.1});
 gui.add(store.state.matcapEditor.create, 'color', { ctype:'hex' });
+
+gui.add(store.state.matcapEditor.ambiant, 'intensity', {name:'ambiant', min:0, max:1, step:.001, precision:3})
+.onChange( (value)=>{
+    Events.emit('matcap:ambiant:update');
+} );
+
+const colorObj = {ambiantColor:0xffffff};
+gui.add(colorObj, 'ambiantColor', { ctype:'hex' }).onChange(()=>{
+    store.state.matcapEditor.ambiant.color.setHex(colorObj.ambiantColor);
+    Events.emit('matcap:ambiant:update');
+});
+
 
 let gr = gui.add( 'group', { name:'current light', h:30 });
 

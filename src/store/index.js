@@ -1,3 +1,4 @@
+import { Color } from "three";
 import { createStore } from "vuex";
 
 const store = createStore({
@@ -7,6 +8,10 @@ const store = createStore({
                 size:{
                     width: 200,
                     height: 200,
+                },
+                ambiant: {
+                    color: new Color(),
+                    intensity: 0.004,
                 },
                 create : {
                     front: true,

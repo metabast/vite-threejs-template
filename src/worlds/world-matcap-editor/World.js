@@ -6,6 +6,7 @@ import Resize from '../../commons/Resize.js'
 import Stats from '../../commons/Stats.js';
 import store from '../../store';
 import { BufferGeometry, Mesh } from 'three';
+import Events from '../../commons/Events.js';
 
 BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
