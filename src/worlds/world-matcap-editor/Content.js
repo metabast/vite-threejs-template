@@ -66,14 +66,13 @@ class Content{
         Events.on('matcap:export:png', this.exportPNG.bind(this));
         Events.on('matcap:light:update:distance', this.updateLightDistance.bind(this));
         Events.on('matcap:light:delete', this.deleteLight.bind(this));
-        Events.on('light:startMoving', (lightModel)=>{
+        Events.on('matcap:light:startMoving', (lightModel)=>{
             this.currentLightModel = lightModel;
         });
         Events.on('light:stopMoving', (lightModel)=>{
             this.currentLightModel = null;
             this.snapshot();
         });
-        // this.world.canvas.addEventListener( 'pointerdown', this.onPointerDown.bind(this) );
         this.world.canvas.addEventListener( 'pointerup', this.pointerUpListener );
     }
 
@@ -96,7 +95,7 @@ class Content{
     }
 
     onPointerUp(event){
-        Events.emit('light:stopMoving', this.currentLightModel);
+        store.state.matcapEditor.isUILightVisible = true;
         this.currentLightModel = null;
     }
 
@@ -151,7 +150,7 @@ class Content{
             this.currentLightModel.positionOnSphere = positionOnSphere;
             this.currentLightModel.sphereFaceNormal = this.hitSphere.face.normal.clone();
         }
-
+        
     }
 
     onMouseOut(event){

@@ -22,11 +22,11 @@ class World{
 		this.scene = new THREE.Scene();
 		this.halfSize = .5;
 		this.camera = new THREE.OrthographicCamera( -this.halfSize, this.halfSize, this.halfSize, -this.halfSize, .5, 200 );
-		// scene.background = new THREE.Color(0xffffff);
 		this.renderer = new THREE.WebGLRenderer({
 			canvas: this.canvas,
 			antialias: true,
 		});
+		this.renderer.outputEncoding = THREE.sRGBEncoding;
 		this.renderer.setSize( store.state.matcapEditor.size.width, store.state.matcapEditor.size.height );
 
 		this.camera.position.set( 0, 0, 1 );

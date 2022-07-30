@@ -14,7 +14,9 @@ const store = createStore({
                     color: 0xFFFFFF,
                     intensity: 1,
                     distance:1,
-                }
+                },
+                lights : [],
+                isUILightVisible: true,
             }
         };
     },
