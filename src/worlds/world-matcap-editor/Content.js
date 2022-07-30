@@ -108,6 +108,7 @@ class Content{
     onPointerUp(event){
         store.state.matcapEditor.isUILightVisible = true;
         this.currentLightModel = null;
+        this.snapshot();
     }
 
     onPointerMove(event){

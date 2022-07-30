@@ -62,6 +62,16 @@ const updateCurrentLight = (lightModel)=>{
         lightModel.light.color.setHex(colorObj.color);
         Events.emit('matcap:snapshot');
     });
+    if(lightModel.light.type === 'PointLight'){
+        gr.add(lightModel.light, 'distance', {min:0, max:10, step:0.01})
+        .onChange(()=>{
+            Events.emit('matcap:snapshot');
+        });
+        gr.add(lightModel.light, 'decay', {min:0, max:100, step:0.01})
+        .onChange(()=>{
+            Events.emit('matcap:snapshot');
+        });
+    }
 
     gr.add('button', {name: 'delete', title: 'delete'}).onChange(()=>{
         lights.splice(lights.indexOf(lightModel), 1);
