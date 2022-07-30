@@ -8,6 +8,8 @@ import World from './World';
 import { getScreenPosition } from '../../commons/VectorHelper';
 import store from '../../store';
 import { Color, Vector3 } from 'three';
+import LightModel from './LightModel';
+import { toRaw } from 'vue';
 
 const cameraSnapshot = new THREE.OrthographicCamera( -halfSize, halfSize, halfSize, -halfSize, .5, 200 );
 cameraSnapshot.position.set( 0, 0, 1 );
@@ -57,15 +59,22 @@ class Content{
         this.world.canvas.addEventListener( 'mouseover', this.onMouseOver.bind(this) );
         this.world.canvas.addEventListener( 'mouseout', this.onMouseOut.bind(this) );
         this.pointerDownListener = this.onPointerDown.bind(this);
+        this.pointerUpListener = this.onPointerUp.bind(this);
         this.pointerMoveListener = this.onPointerMove.bind(this);
 
         Events.on('matcap:snapshot', this.snapshot.bind(this));
         Events.on('matcap:export:png', this.exportPNG.bind(this));
         Events.on('matcap:light:update:distance', this.updateLightDistance.bind(this));
-        Events.on('light:startPointermove', (light)=>{
-            this.currentLight = light;
-        })
+        Events.on('matcap:light:delete', this.deleteLight.bind(this));
+        Events.on('light:startMoving', (lightModel)=>{
+            this.currentLightModel = lightModel;
+        });
+        Events.on('light:stopMoving', (lightModel)=>{
+            this.currentLightModel = null;
+            this.snapshot();
+        });
         // this.world.canvas.addEventListener( 'pointerdown', this.onPointerDown.bind(this) );
+        this.world.canvas.addEventListener( 'pointerup', this.pointerUpListener );
     }
 
     update(clock){
@@ -81,8 +90,14 @@ class Content{
     }
 
     onMouseOver(event){
+        this.arrowHelper.visible = true;
         this.world.canvas.addEventListener( 'pointermove', this.pointerMoveListener );
         this.world.canvas.addEventListener( 'pointerdown', this.pointerDownListener );
+    }
+
+    onPointerUp(event){
+        Events.emit('light:stopMoving', this.currentLightModel);
+        this.currentLightModel = null;
     }
 
     onPointerMove(event){
@@ -113,22 +128,34 @@ class Content{
         this.arrowHelper.position.copy(hit2.point);
         this.hitSphere = hit2;
 
-        if(this.currentLight) {
-            this.lightPosition = this.hitSphere.point.clone();
-            this.lightPosition.add( this.hitSphere.face.normal.clone().multiplyScalar(storeCreate.distance) );
-            this.currentLight.position.x = this.lightPosition.x;
-            this.currentLight.position.y = this.lightPosition.y;
+        if(this.currentLightModel) {
+            const positionOnSphere = this.hitSphere.point.clone();
+            this.lightPosition = positionOnSphere.clone();
+            this.lightPosition.add( this.hitSphere.face.normal.clone().multiplyScalar(this.currentLightModel.distance) );
+            this.currentLightModel.light.position.x = this.lightPosition.x;
+            this.currentLightModel.light.position.y = this.lightPosition.y;
             if(store.state.matcapEditor.create.front)
-                this.currentLight.position.z = this.lightPosition.z;
+                this.currentLightModel.light.position.z = this.lightPosition.z;
             else
-                this.currentLight.position.z = -this.lightPosition.z;
+                this.currentLightModel.light.position.z = -this.lightPosition.z;
             
-            this.currentLight.lookAt( 0, 0, 0 );
+            this.currentLightModel.light.lookAt( 0, 0, 0 );
+
+            const screenPosition = getScreenPosition(
+                positionOnSphere.clone().add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
+                this.camera,
+                store.state.matcapEditor.size.width,
+                store.state.matcapEditor.size.height
+            );
+            this.currentLightModel.screenPosition = screenPosition;
+            this.currentLightModel.positionOnSphere = positionOnSphere;
+            this.currentLightModel.sphereFaceNormal = this.hitSphere.face.normal.clone();
         }
 
     }
 
     onMouseOut(event){
+        this.arrowHelper.visible = false;
         this.world.canvas.removeEventListener( 'pointermove', this.pointerMoveListener );
         this.world.canvas.removeEventListener( 'pointerdown', this.pointerDownListener );
     }
@@ -140,7 +167,7 @@ class Content{
         if(!this.hitSphere)
             return;
         
-        const pointOnSphere = this.hitSphere.point.clone();
+        const positionOnSphere = this.hitSphere.point.clone();
         
         this.lightPosition = this.hitSphere.point.clone();
         this.lightPosition.add( this.hitSphere.face.normal.clone().multiplyScalar(storeCreate.distance) );
@@ -157,42 +184,48 @@ class Content{
         this.scene.add( pointLight );
 
         
-        
-        const screenVector = getScreenPosition(
-            pointOnSphere.clone().add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
+        const screenPosition = getScreenPosition(
+            positionOnSphere.clone().add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
             this.camera,
             store.state.matcapEditor.size.width,
             store.state.matcapEditor.size.height
         );
-        Events.emit('matcap:editor:light:added', {
-            x: screenVector.x,
-            y: screenVector.y,
-            pointOnSphere,
-            distance: Number(storeCreate.distance),
-            light : pointLight,
-            normal: this.hitSphere.face.normal.clone(),
-        });
+
+        const lightModel = new LightModel()
+        lightModel.light = pointLight;
+        lightModel.screenPosition = screenPosition;
+        lightModel.positionOnSphere = positionOnSphere;
+        lightModel.sphereFaceNormal = this.hitSphere.face.normal.clone();
+        lightModel.distance = Number(storeCreate.distance);
+        
+        Events.emit('matcap:editor:light:added', lightModel);
         
         this.snapshot();
     }
 
-    updateLightDistance(matcapLight){
-        const lightPosition = matcapLight.pointOnSphere.clone();
-        lightPosition.add( matcapLight.normal.clone().multiplyScalar(matcapLight.distance) );
-        matcapLight.light.position.x = lightPosition.x;
-        matcapLight.light.position.y = lightPosition.y;
+    updateLightDistance(lightModel){
+        const lightPosition = lightModel.positionOnSphere.clone();
+        lightPosition.add( lightModel.sphereFaceNormal.clone().multiplyScalar(lightModel.distance) );
+        lightModel.light.position.x = lightPosition.x;
+        lightModel.light.position.y = lightPosition.y;
         if(store.state.matcapEditor.create.front)
-            matcapLight.light.position.z = lightPosition.z;
+            lightModel.light.position.z = lightPosition.z;
         else
-            matcapLight.light.position.z = -lightPosition.z;
+            lightModel.light.position.z = -lightPosition.z;
         
+        this.snapshot();
+    }
+
+    deleteLight(lightModel){
+        this.scene.remove(toRaw(lightModel.light));
         this.snapshot();
     }
     
     snapshot() {
+        const arrowHelperVisibleState = this.arrowHelper.visible;
         this.arrowHelper.visible = false;
         this.renderer.render(this.scene, cameraSnapshot);
-        this.arrowHelper.visible = true;
+        this.arrowHelper.visible = arrowHelperVisibleState;
         this.renderer.domElement.toBlob(this.onBlobReady.bind(this), 'image/png', 1.0);
     }
 

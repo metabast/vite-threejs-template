@@ -1,7 +1,7 @@
 <script setup>
 import Events from '../commons/Events.js';
 import * as THREE from 'three';
-import {reactive, ref} from 'vue';
+import {reactive, ref, toRaw} from 'vue';
 import store from '../store/index.js';
 import {Gui} from 'uil';
 
@@ -12,54 +12,62 @@ if (import.meta.hot) {
 }
 const lights = reactive([]);
 let currentLight = null;
+const state = reactive({ isVisible: true })
 
-const lightAdded = (screenVector)=>{
-    // console.log('light added', screenVector);
+const lightAdded = (lightModel)=>{
+    updateCurrentLight(lightModel);
+    lights.push(lightModel);
+}
+
+const updateCurrentLight = (lightModel)=>{
+    currentLight = lightModel;
     gr.clear();
     
-    gr.add(screenVector.light, 'intensity', {min:0, max:10, step:0.01})
+    gr.add(lightModel.light, 'intensity', {min:0, max:10, step:0.01})
     .onChange(()=>{
         Events.emit('matcap:snapshot');
     });
-    gr.add(screenVector, 'distance', {min:0, max:10, step:0.01})
+    gr.add(lightModel, 'distance', {min:0, max:10, step:0.01})
     .onChange(()=>{
-        Events.emit('matcap:light:update:distance', screenVector);
+        Events.emit('matcap:light:update:distance', lightModel);
+    });
+    let colorObj = {
+        color: lightModel.light.color.getHex(),
+    };
+    gr.add(colorObj, 'color', { ctype:'hex' }).onChange(()=>{
+        lightModel.light.color.setHex(colorObj.color);
+        Events.emit('matcap:snapshot');
+    });
+
+    gr.add('button', {name: 'delete', title: 'delete'}).onChange(()=>{
+        lights.splice(lights.indexOf(lightModel), 1);
+        Events.emit('matcap:light:delete', lightModel);
+        gr.clear();
     });
     
     gr.open();
-    lights.push(screenVector);
 }
 
 
 
-const getCSSPosition = (screenVector)=>{
-    return `left:${screenVector.x - 6}px; top:${screenVector.y - 6}px;`;
+const getCSSPosition = (lightModel)=>{
+    return `
+        left:${lightModel.screenPosition.x - 6}px;
+        top:${lightModel.screenPosition.y - 6}px;
+        border-color:${lightModel.light.uuid === currentLight.light.uuid ? '#00ffff' : '#ffffff'};
+    `;
 }
 
-const onMouseOver = (event)=>{
-    // console.log("onMouseOver");
-    // Events.emit("focus:changed", "world-matcap-editor-light");
-    event.target.removeEventListener('mousemove', onMouseMove);
+const onMouseDown = (event, lightModel)=>{
+    // event.target.style.pointerEvents = 'none'
+    state.isVisible = false;
+    updateCurrentLight(lightModel);
+    Events.emit("light:startMoving", lightModel);
 }
 
-const onMouseDown = (event, light)=>{
-    // console.log('mouse down', event.target);
-    event.target.addEventListener('mousemove', onMouseMove);
-    event.target.addEventListener('mouseup', onMouseUp);
-    
-    event.target.style.pointerEvents = 'none'
-    Events.emit("light:startPointermove", light.light);
-}
-
-const onMouseUp = (event)=>{
-    console.log('mouse up', event);
-    event.target.removeEventListener('mousemove', onMouseMove);
-}
-
-const onMouseMove = (event, b)=>{
-    console.log('mouse move', event);
-    // event.target.style.left = `${event.clientX}px`;
-    // console.log(event.target);
+const onMouseUp = (event, lightModel)=>{
+    // event.target.style.pointerEvents = 'auto'
+    Events.emit("light:stopMoving", lightModel);
 }
 
 const getMatcapLightsStyle = ()=>{
@@ -87,20 +95,27 @@ gui.add(store.state.matcapEditor.create, 'color', { ctype:'hex' });
 
 let gr = gui.add( 'group', { name:'current light', h:30 });
 
+const onMoving = (light) =>{
+    console.log('moving', light);
+}
+
+const onStopMoving = (lightModel) =>{
+    state.isVisible = true;
+}
 
 Events.on('matcap:editor:light:added', lightAdded);
+Events.on('light:stopMoving', onStopMoving)
 
 </script>
 
 <template>
-    <div>
+    <div v-if="state.isVisible">
         <div id="matcapLights" :style="getMatcapLightsStyle()">
             <div 
                 v-for="light, index in lights"
                 :key="index"
                 class="light" 
                 :style="getCSSPosition(light)"
-                @mouseover="onMouseOver($event, light)"
                 @mousedown="onMouseDown($event, light)"
             ></div>
         </div>
@@ -125,7 +140,9 @@ Events.on('matcap:editor:light:added', lightAdded);
         border-radius: 10px;
         touch-action: none;
         pointer-events: all;
-        border: 1px solid rgba(255, 255, 255, 0.425);
+        border-width: 1px;
+        border-style: solid;
+        mix-blend-mode: difference;
     }
     .light:hover{
         background-color: rgba(255, 255, 255, 0.233);
