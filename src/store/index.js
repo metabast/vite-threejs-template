@@ -19,6 +19,10 @@ const store = createStore({
                     color: 0xFFFFFF,
                     intensity: 1,
                     distance:1,
+                    area: {
+                        width: 10,
+                        height: 10,
+                    }
                 },
                 lights : [],
                 isUILightVisible: true,

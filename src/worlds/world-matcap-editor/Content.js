@@ -10,6 +10,7 @@ import store from '../../store';
 import { Color, Vector3 } from 'three';
 import LightModel from './LightModel';
 import { toRaw } from 'vue';
+import LightFabric from '../../components/LightFabric';
 
 const cameraSnapshot = new THREE.OrthographicCamera( -halfSize, halfSize, halfSize, -halfSize, .5, 200 );
 cameraSnapshot.position.set( 0, 0, 1 );
@@ -182,17 +183,17 @@ class Content{
         
         this.lightPosition = this.hitSphere.point.clone();
         this.lightPosition.add( this.hitSphere.face.normal.clone().multiplyScalar(storeCreate.distance) );
-        const pointLight = new THREE.PointLight( Number(storeCreate.color), storeCreate.intensity );
-        pointLight.position.x = this.lightPosition.x;
-        pointLight.position.y = this.lightPosition.y;
+
+        const instanceOfLight = LightFabric.getLightInstance(storeCreate.type);
+        instanceOfLight.position.x = this.lightPosition.x;
+        instanceOfLight.position.y = this.lightPosition.y;
         if(store.state.matcapEditor.create.front)
-            pointLight.position.z = this.lightPosition.z;
+            instanceOfLight.position.z = this.lightPosition.z;
         else
-            pointLight.position.z = -this.lightPosition.z;
+            instanceOfLight.position.z = -this.lightPosition.z;
         
-        pointLight.lookAt( 0, 0, 0 );
-        // console.log(pointLight);
-        this.scene.add( pointLight );
+        instanceOfLight.lookAt( 0, 0, 0 );
+        this.scene.add( instanceOfLight );
 
         
         const screenPosition = getScreenPosition(
@@ -203,7 +204,7 @@ class Content{
         );
 
         const lightModel = new LightModel()
-        lightModel.light = pointLight;
+        lightModel.light = instanceOfLight;
         lightModel.screenPosition = screenPosition;
         lightModel.positionOnSphere = positionOnSphere;
         lightModel.sphereFaceNormal = this.hitSphere.face.normal.clone();
