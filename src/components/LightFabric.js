@@ -1,4 +1,4 @@
-import { PointLight, RectAreaLight } from "three";
+import { PointLight, RectAreaLight, SpotLight } from "three";
 import store from "../store";
 const storeCreate = store.state.matcapEditor.create;
 class LightFabric{
@@ -23,7 +23,8 @@ class LightFabric{
                 return areaLight;
                 break;
             case 'Spot':
-
+                const spotLight = new SpotLight(Number(storeCreate.color), storeCreate.intensity);
+                return spotLight;
                 break;
 
             default:

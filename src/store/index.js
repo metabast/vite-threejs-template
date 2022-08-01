@@ -20,8 +20,8 @@ const store = createStore({
                     intensity: 1,
                     distance:1,
                     area: {
-                        width: 10,
-                        height: 10,
+                        width: 2,
+                        height: 6,
                     }
                 },
                 lights : [],

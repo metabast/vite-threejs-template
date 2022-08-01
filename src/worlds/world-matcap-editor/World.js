@@ -7,7 +7,7 @@ import Stats from '../../commons/Stats.js';
 import store from '../../store';
 import { BufferGeometry, Mesh } from 'three';
 import Events from '../../commons/Events.js';
-
+import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
 BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 Mesh.prototype.raycast = acceleratedRaycast;
@@ -21,6 +21,7 @@ class World{
 
 		this.canvas = document.querySelector('canvas.webgl2');
 		this.scene = new THREE.Scene();
+		RectAreaLightUniformsLib.init();
 		this.halfSize = .5;
 		this.camera = new THREE.OrthographicCamera( -this.halfSize, this.halfSize, this.halfSize, -this.halfSize, .5, 200 );
 		this.renderer = new THREE.WebGLRenderer({

@@ -86,6 +86,9 @@ class Content{
             this.snapshot();
         });
         this.world.canvas.addEventListener( 'pointerup', this.pointerUpListener );
+
+        this.sphereRenderMaterial = sphereRenderMaterial;
+        Events.emit('matcap:content:ready', this);
     }
 
     update(clock){
@@ -151,7 +154,7 @@ class Content{
             else
                 this.currentLightModel.light.position.z = -this.lightPosition.z;
             
-            this.currentLightModel.light.lookAt( 0, 0, 0 );
+            this.currentLightModel.update();
 
             const screenPosition = getScreenPosition(
                 positionOnSphere.clone().add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
@@ -185,6 +188,7 @@ class Content{
         this.lightPosition.add( this.hitSphere.face.normal.clone().multiplyScalar(storeCreate.distance) );
 
         const instanceOfLight = LightFabric.getLightInstance(storeCreate.type);
+        console.log("instanceOfLight", instanceOfLight);
         instanceOfLight.position.x = this.lightPosition.x;
         instanceOfLight.position.y = this.lightPosition.y;
         if(store.state.matcapEditor.create.front)
@@ -192,8 +196,9 @@ class Content{
         else
             instanceOfLight.position.z = -this.lightPosition.z;
         
-        instanceOfLight.lookAt( 0, 0, 0 );
         this.scene.add( instanceOfLight );
+        if(storeCreate.type === 'Spot')
+            this.scene.add( instanceOfLight.target );
 
         
         const screenPosition = getScreenPosition(
