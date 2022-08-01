@@ -12,13 +12,16 @@ import LightModel from './LightModel';
 import { toRaw } from 'vue';
 import LightFabric from '../../components/LightFabric';
 
+const storeCreate = store.state.matcapEditor.create;
+const storeMaterial = store.state.matcapEditor.material;
+
 const cameraSnapshot = new THREE.OrthographicCamera( -halfSize, halfSize, halfSize, -halfSize, .5, 200 );
 cameraSnapshot.position.set( 0, 0, 1 );
 
 const planeGeometry = new THREE.PlaneGeometry(2,2);
 const planeMaterial = new THREE.MeshBasicMaterial({color: 0x000000});
 planeMaterial.transparent = true;
-planeMaterial.opacity = 1;
+planeMaterial.opacity = 0;
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
 const widthSegments = 256;
@@ -26,10 +29,12 @@ const heightSegments = widthSegments / (4 / 3);
 
 const sphereRenderGeometry = new THREE.SphereGeometry(0.3, widthSegments, heightSegments);
 const sphereRenderMaterial = new THREE.MeshPhysicalMaterial({color: 0xffffff});
+sphereRenderMaterial.roughness = storeMaterial.roughness;
+sphereRenderMaterial.metalness = storeMaterial.metalness;
 const sphereRender = new THREE.Mesh(sphereRenderGeometry, sphereRenderMaterial);
 
 const sphereNormalGeometry = new THREE.SphereGeometry(0.4, widthSegments, heightSegments);
-const sphereNormalMaterial = new THREE.MeshNormalMaterial    ({color: 0xffffff, opacity:0, transparent:true});
+const sphereNormalMaterial = new THREE.MeshNormalMaterial    ({opacity:0, transparent:true});
 const sphereNormal = new THREE.Mesh(sphereNormalGeometry, sphereNormalMaterial);
 
 const meshesIntersectable = [plane, sphereRender, sphereNormal];
@@ -37,7 +42,7 @@ const meshesIntersectable = [plane, sphereRender, sphereNormal];
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 
-const storeCreate = store.state.matcapEditor.create;
+
 
 
 class Content{
@@ -188,7 +193,6 @@ class Content{
         this.lightPosition.add( this.hitSphere.face.normal.clone().multiplyScalar(storeCreate.distance) );
 
         const instanceOfLight = LightFabric.getLightInstance(storeCreate.type);
-        console.log("instanceOfLight", instanceOfLight);
         instanceOfLight.position.x = this.lightPosition.x;
         instanceOfLight.position.y = this.lightPosition.y;
         if(store.state.matcapEditor.create.front)

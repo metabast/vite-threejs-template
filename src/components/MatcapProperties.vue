@@ -149,6 +149,26 @@ Events.on('matcap:content:ready', (content)=>{
     grMat.add(content.sphereRenderMaterial, 'metalness', {min:0, max:1, step:0.01}).onChange((value)=>{
         Events.emit('matcap:snapshot');
     }).listen();
+        let colorObj = {
+            color: content.sphereRenderMaterial.specularColor.getHex(),
+            specularColor: content.sphereRenderMaterial.specularColor.getHex(),
+        };
+    
+    grMat.add(colorObj, 'color', { ctype:'hex' }).onChange(()=>{
+        content.sphereRenderMaterial.color.setHex(colorObj.color);
+        Events.emit('matcap:snapshot');
+    });
+
+    // grMat.add(content.sphereRenderMaterial, 'specularIntensity', {min:0, max:1, step:0.01}).onChange((value)=>{
+    //     Events.emit('matcap:snapshot');
+    // }).listen();
+
+    // grMat.add(colorObj, 'color', { ctype:'hex' }).onChange(()=>{
+    //     content.sphereRenderMaterial.specularColor.setHex(colorObj.specularColor);
+    //     console.log(content.sphereRenderMaterial.specularColor);
+    //     Events.emit('matcap:snapshot');
+    // });
+
 });
 
 </script>

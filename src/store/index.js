@@ -9,6 +9,10 @@ const store = createStore({
                     width: 200,
                     height: 200,
                 },
+                material:{
+                    roughness: .25,
+                    metalness: .5,
+                },
                 ambiant: {
                     color: new Color(),
                     intensity: 0.004,
