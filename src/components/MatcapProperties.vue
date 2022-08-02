@@ -20,7 +20,7 @@ const gui = new Gui({css:`
 // gui.add(store.state.matcapEditor.create, 'distance', {min:0, max:10, step:.1});
 
 gui.add('button', {name:'export png'}).onChange(()=>{
-    Events.emit('matcap:export:png');
+    Events.emit('matcap:export:png', true);
     });
 
 gui.add( store.state.matcapEditor.create, 'front');

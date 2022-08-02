@@ -27,8 +27,8 @@ const updateCurrentLight = (lightModel)=>{
 
 const getCSSPosition = (lightModel)=>{
     return `
-        left:${lightModel.screenPosition.x - 6}px;
-        top:${lightModel.screenPosition.y - 6}px;
+        left:${lightModel.screenPosition.x / store.state.matcapEditor.ratio - 6}px;
+        top:${lightModel.screenPosition.y / store.state.matcapEditor.ratio - 6}px;
         border-color:${lightModel.light.uuid === currentLight.light.uuid ? '#00ffff' : '#ffffff'};
     `;
 }
@@ -43,8 +43,8 @@ const onMouseDown = (event, lightModel)=>{
 
 const getMatcapLightsStyle = ()=>{
     return `
-        width: ${store.state.matcapEditor.size.width}px;
-        height: ${store.state.matcapEditor.size.height}px;
+        width: ${store.state.matcapEditor.sizeView.width}px;
+        height: ${store.state.matcapEditor.sizeView.height}px;
     `;
 }
 

@@ -80,7 +80,7 @@ class Content{
         this.pointerMoveListener = this.onPointerMove.bind(this);
 
         Events.on('matcap:snapshot', this.snapshot.bind(this));
-        Events.on('matcap:export:png', this.exportPNG.bind(this));
+        Events.on('matcap:export:png', this.snapshot.bind(this));
         Events.on('matcap:light:update:distance', this.updateLightDistance.bind(this));
         Events.on('matcap:light:delete', this.deleteLight.bind(this));
         Events.on('matcap:light:startMoving', (lightModel)=>{
@@ -121,7 +121,10 @@ class Content{
     }
 
     onPointerMove(event){
-        pointer.set(( event.offsetX / store.state.matcapEditor.size.width ) * 2 - 1, - ( event.offsetY / store.state.matcapEditor.size.height ) * 2 + 1);
+        pointer.set(
+            ( event.offsetX * store.state.matcapEditor.ratio / store.state.matcapEditor.sizeExport.width ) * 2 - 1, 
+            - ( event.offsetY * store.state.matcapEditor.ratio / store.state.matcapEditor.sizeExport.height ) * 2 + 1
+        );
         raycaster.setFromCamera( pointer, this.camera );
         const hits = raycaster.intersectObjects( meshesIntersectable );
         const hit = hits[0];
@@ -164,8 +167,8 @@ class Content{
             const screenPosition = getScreenPosition(
                 positionOnSphere.clone().add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
                 this.camera,
-                store.state.matcapEditor.size.width,
-                store.state.matcapEditor.size.height
+                store.state.matcapEditor.sizeExport.width,
+                store.state.matcapEditor.sizeExport.height
             );
             this.currentLightModel.screenPosition = screenPosition;
             this.currentLightModel.positionOnSphere = positionOnSphere;
@@ -208,8 +211,8 @@ class Content{
         const screenPosition = getScreenPosition(
             positionOnSphere.clone().add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
             this.camera,
-            store.state.matcapEditor.size.width,
-            store.state.matcapEditor.size.height
+            store.state.matcapEditor.sizeExport.width,
+            store.state.matcapEditor.sizeExport.height
         );
 
         const lightModel = new LightModel()
@@ -242,9 +245,15 @@ class Content{
         this.snapshot();
     }
     
-    snapshot() {
+    snapshot(exported = false) {
+        this.exported = exported;
         const arrowHelperVisibleState = this.arrowHelper.visible;
         this.arrowHelper.visible = false;
+        if(this.exported) {
+            this.renderer.setPixelRatio(4);
+        }else{
+            this.renderer.setPixelRatio(1);
+        }
         this.renderer.render(this.scene, cameraSnapshot);
         this.arrowHelper.visible = arrowHelperVisibleState;
         this.renderer.domElement.toBlob(this.onBlobReady.bind(this), 'image/png', 1.0);
@@ -253,7 +262,12 @@ class Content{
     onBlobReady(blob){
         const url = URL.createObjectURL(blob);
         this.blobURL = url;
-        Events.emit('matcap:updateFromEditor', url);
+        if(this.exported){
+            this.exportPNG();
+            this.renderer.setPixelRatio(1);
+        }
+        else
+            Events.emit('matcap:updateFromEditor', url);
     }
 
     exportPNG(){

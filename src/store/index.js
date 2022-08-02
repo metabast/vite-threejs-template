@@ -5,10 +5,15 @@ const store = createStore({
     state() {
         return {
             matcapEditor: {
-                size:{
+                sizeExport:{
+                    width: 256,
+                    height: 256,
+                },
+                sizeView:{
                     width: 200,
                     height: 200,
                 },
+                ratio: 256/200,
                 material:{
                     roughness: .25,
                     metalness: .5,

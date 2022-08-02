@@ -29,7 +29,8 @@ class World{
 			antialias: true,
 		});
 		this.renderer.outputEncoding = THREE.sRGBEncoding;
-		this.renderer.setSize( store.state.matcapEditor.size.width, store.state.matcapEditor.size.height );
+		this.renderer.setSize( store.state.matcapEditor.sizeExport.width, store.state.matcapEditor.sizeExport.height );
+		this.renderer.setPixelRatio(1);
 
 		this.camera.position.set( 0, 0, 1 );
 
