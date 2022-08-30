@@ -43,8 +43,8 @@ const onMouseDown = (event, lightModel)=>{
 
 const getMatcapLightsStyle = ()=>{
     return `
-        width: ${store.state.matcapEditor.sizeView.width}px;
-        height: ${store.state.matcapEditor.sizeView.height}px;
+        width: ${store.state.matcapEditor.sizes.view}px;
+        height: ${store.state.matcapEditor.sizes.view}px;
     `;
 }
 

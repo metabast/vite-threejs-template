@@ -5,13 +5,11 @@ const store = createStore({
     state() {
         return {
             matcapEditor: {
-                sizeExport:{
-                    width: 256,
-                    height: 256,
-                },
-                sizeView:{
-                    width: 200,
-                    height: 200,
+                sizes: {
+                    view: 200,
+                    exportDefault: 256,
+                    exportRatios: [.5, 1, 2, 4],
+                    exportRatio: 1,
                 },
                 ratio: 256/200,
                 material:{

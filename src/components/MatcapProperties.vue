@@ -19,6 +19,12 @@ const gui = new Gui({css:`
 
 // gui.add(store.state.matcapEditor.create, 'distance', {min:0, max:10, step:.1});
 
+let sizes = store.state.matcapEditor.sizes.exportRatios.map( (value)=> value * store.state.matcapEditor.sizes.exportDefault);
+gui.add('grid', { name:'', values:sizes, selectable:true, value: store.state.matcapEditor.sizes.exportDefault })
+.onChange( (value)=>{
+    store.state.matcapEditor.sizes.exportRatio = value/store.state.matcapEditor.sizes.exportDefault;
+} );
+
 gui.add('button', {name:'export png'}).onChange(()=>{
     Events.emit('matcap:export:png', true);
     });

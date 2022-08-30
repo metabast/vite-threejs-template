@@ -122,8 +122,8 @@ class Content{
 
     onPointerMove(event){
         pointer.set(
-            ( event.offsetX * store.state.matcapEditor.ratio / store.state.matcapEditor.sizeExport.width ) * 2 - 1, 
-            - ( event.offsetY * store.state.matcapEditor.ratio / store.state.matcapEditor.sizeExport.height ) * 2 + 1
+            ( event.offsetX * store.state.matcapEditor.ratio / store.state.matcapEditor.sizes.exportDefault ) * 2 - 1, 
+            - ( event.offsetY * store.state.matcapEditor.ratio / store.state.matcapEditor.sizes.exportDefault ) * 2 + 1
         );
         raycaster.setFromCamera( pointer, this.camera );
         const hits = raycaster.intersectObjects( meshesIntersectable );
@@ -167,8 +167,8 @@ class Content{
             const screenPosition = getScreenPosition(
                 positionOnSphere.clone().add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
                 this.camera,
-                store.state.matcapEditor.sizeExport.width,
-                store.state.matcapEditor.sizeExport.height
+                store.state.matcapEditor.sizes.exportDefault,
+                store.state.matcapEditor.sizes.exportDefault
             );
             this.currentLightModel.screenPosition = screenPosition;
             this.currentLightModel.positionOnSphere = positionOnSphere;
@@ -211,8 +211,8 @@ class Content{
         const screenPosition = getScreenPosition(
             positionOnSphere.clone().add(this.hitSphere.face.normal.clone().multiplyScalar(.1)),
             this.camera,
-            store.state.matcapEditor.sizeExport.width,
-            store.state.matcapEditor.sizeExport.height
+            store.state.matcapEditor.sizes.exportDefault,
+            store.state.matcapEditor.sizes.exportDefault
         );
 
         const lightModel = new LightModel()
@@ -250,7 +250,7 @@ class Content{
         const arrowHelperVisibleState = this.arrowHelper.visible;
         this.arrowHelper.visible = false;
         if(this.exported) {
-            this.renderer.setPixelRatio(4);
+            this.renderer.setPixelRatio(store.state.matcapEditor.sizes.exportRatio);
         }else{
             this.renderer.setPixelRatio(1);
         }

@@ -29,7 +29,7 @@ const onMouseOverWorldMatcapEditor= (event)=>{
 
 <template>
   <canvas class="webgl"></canvas>
-  <canvas class="webgl2" :width="store.state.matcapEditor.sizeExport.width" :height="store.state.matcapEditor.sizeExport.height"></canvas>
+  <canvas class="webgl2" :width="store.state.matcapEditor.sizes.exportDefault" :height="store.state.matcapEditor.sizes.exportDefault"></canvas>
   <MatcapLights/>
 </template>
 
