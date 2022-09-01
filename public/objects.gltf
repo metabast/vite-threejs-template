@@ -1,0 +1,853 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v3.2.43",
+        "version" : "2.0"
+    },
+    "extensionsUsed" : [
+        "KHR_draco_mesh_compression"
+    ],
+    "extensionsRequired" : [
+        "KHR_draco_mesh_compression"
+    ],
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                2,
+                5,
+                8,
+                11,
+                14,
+                17
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "name" : "PreviewAngle"
+        },
+        {
+            "mesh" : 0,
+            "name" : "PreviewSphere",
+            "scale" : [
+                50.5775146484375,
+                50,
+                51.85468673706055
+            ]
+        },
+        {
+            "children" : [
+                0,
+                1
+            ],
+            "name" : "root",
+            "scale" : [
+                0.009999999776482582,
+                0.009999999776482582,
+                0.009999999776482582
+            ],
+            "translation" : [
+                0,
+                0,
+                -0.7389757633209229
+            ]
+        },
+        {
+            "name" : "PreviewAngle.001",
+            "translation" : [
+                1.52587890625e-05,
+                0,
+                0
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "PreviewSphere.001",
+            "scale" : [
+                50.5775146484375,
+                50,
+                51.85468673706055
+            ],
+            "translation" : [
+                1.52587890625e-05,
+                0,
+                0
+            ]
+        },
+        {
+            "children" : [
+                3,
+                4
+            ],
+            "name" : "root.001",
+            "scale" : [
+                0.009999999776482582,
+                0.009999999776482582,
+                0.009999999776482582
+            ],
+            "translation" : [
+                1.3949204683303833,
+                0,
+                -0.7389757633209229
+            ]
+        },
+        {
+            "name" : "PreviewAngle.002"
+        },
+        {
+            "mesh" : 2,
+            "name" : "PreviewSphere.002",
+            "scale" : [
+                50.5775146484375,
+                50,
+                51.85468673706055
+            ]
+        },
+        {
+            "children" : [
+                6,
+                7
+            ],
+            "name" : "root.002",
+            "scale" : [
+                0.009999999776482582,
+                0.009999999776482582,
+                0.009999999776482582
+            ],
+            "translation" : [
+                -1.3866173028945923,
+                0,
+                -0.7389757633209229
+            ]
+        },
+        {
+            "name" : "PreviewAngle.003",
+            "translation" : [
+                0,
+                0,
+                7.62939453125e-06
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "PreviewSphere.003",
+            "scale" : [
+                50.5775146484375,
+                50,
+                51.85468673706055
+            ],
+            "translation" : [
+                0,
+                0,
+                7.62939453125e-06
+            ]
+        },
+        {
+            "children" : [
+                9,
+                10
+            ],
+            "name" : "root.003",
+            "scale" : [
+                0.009999999776482582,
+                0.009999999776482582,
+                0.009999999776482582
+            ],
+            "translation" : [
+                0,
+                0,
+                0.8220068216323853
+            ]
+        },
+        {
+            "name" : "PreviewAngle.004",
+            "translation" : [
+                1.52587890625e-05,
+                0,
+                7.62939453125e-06
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "PreviewSphere.004",
+            "scale" : [
+                50.5775146484375,
+                50,
+                51.85468673706055
+            ],
+            "translation" : [
+                1.52587890625e-05,
+                0,
+                7.62939453125e-06
+            ]
+        },
+        {
+            "children" : [
+                12,
+                13
+            ],
+            "name" : "root.004",
+            "scale" : [
+                0.009999999776482582,
+                0.009999999776482582,
+                0.009999999776482582
+            ],
+            "translation" : [
+                1.3949204683303833,
+                0,
+                0.8220068216323853
+            ]
+        },
+        {
+            "name" : "PreviewAngle.005",
+            "translation" : [
+                0,
+                0,
+                7.62939453125e-06
+            ]
+        },
+        {
+            "mesh" : 5,
+            "name" : "PreviewSphere.005",
+            "scale" : [
+                50.5775146484375,
+                50,
+                51.85468673706055
+            ],
+            "translation" : [
+                0,
+                0,
+                7.62939453125e-06
+            ]
+        },
+        {
+            "children" : [
+                15,
+                16
+            ],
+            "name" : "root.005",
+            "scale" : [
+                0.009999999776482582,
+                0.009999999776482582,
+                0.009999999776482582
+            ],
+            "translation" : [
+                -1.3866173028945923,
+                0,
+                0.8220068216323853
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "name" : "Sphere.004",
+            "normalTexture" : {
+                "index" : 0,
+                "scale" : 0.5
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 2
+                }
+            }
+        },
+        {
+            "name" : "Sphere.005",
+            "normalTexture" : {
+                "index" : 3,
+                "scale" : 0.5
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 4
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 5
+                }
+            }
+        },
+        {
+            "name" : "Sphere.003",
+            "normalTexture" : {
+                "index" : 6,
+                "scale" : 0.5
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 7
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 8
+                }
+            }
+        },
+        {
+            "name" : "Sphere",
+            "normalTexture" : {
+                "index" : 9,
+                "scale" : 0.5
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 10
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 11
+                }
+            }
+        },
+        {
+            "name" : "Sphere.001",
+            "normalTexture" : {
+                "index" : 12,
+                "scale" : 0.5
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 13
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 14
+                }
+            }
+        },
+        {
+            "name" : "Sphere.002",
+            "normalTexture" : {
+                "index" : 15,
+                "scale" : 0.5
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 16
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 17
+                }
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "PreviewSphere",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 0,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 3,
+                    "material" : 0,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "PreviewSphere.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 1,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 3,
+                    "material" : 1,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "PreviewSphere.002",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 7,
+                        "NORMAL" : 8,
+                        "TEXCOORD_0" : 9
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 2,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 3,
+                    "material" : 2,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "PreviewSphere.003",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 10,
+                        "NORMAL" : 11,
+                        "TEXCOORD_0" : 12
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 3,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 3,
+                    "material" : 3,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "PreviewSphere.004",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 13,
+                        "NORMAL" : 14,
+                        "TEXCOORD_0" : 15
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 4,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 3,
+                    "material" : 4,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "PreviewSphere.005",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 16,
+                        "NORMAL" : 17,
+                        "TEXCOORD_0" : 18
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 5,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 3,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 2
+        },
+        {
+            "sampler" : 0,
+            "source" : 3
+        },
+        {
+            "sampler" : 0,
+            "source" : 4
+        },
+        {
+            "sampler" : 0,
+            "source" : 5
+        },
+        {
+            "sampler" : 0,
+            "source" : 6
+        },
+        {
+            "sampler" : 0,
+            "source" : 7
+        },
+        {
+            "sampler" : 0,
+            "source" : 8
+        },
+        {
+            "sampler" : 0,
+            "source" : 9
+        },
+        {
+            "sampler" : 0,
+            "source" : 10
+        },
+        {
+            "sampler" : 0,
+            "source" : 11
+        },
+        {
+            "sampler" : 0,
+            "source" : 12
+        },
+        {
+            "sampler" : 0,
+            "source" : 13
+        },
+        {
+            "sampler" : 0,
+            "source" : 14
+        },
+        {
+            "sampler" : 0,
+            "source" : 15
+        },
+        {
+            "sampler" : 0,
+            "source" : 16
+        },
+        {
+            "sampler" : 0,
+            "source" : 17
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Normal.webp",
+            "uri" : "PreviewSphere_Sphere_Normal_webp.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_BaseColor.webp",
+            "uri" : "PreviewSphere_Sphere_BaseColor_webp.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Metallic.webp-PreviewSphere_Sphere_Roughness.webp",
+            "uri" : "PreviewSphere_Sphere_Metallic_webp-PreviewSphere_Sphere_Roughness_webp.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Normal.webp",
+            "uri" : "PreviewSphere_Sphere_Normal_webp-1.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_BaseColor.webp",
+            "uri" : "PreviewSphere_Sphere_BaseColor_webp-1.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Metallic.webp-PreviewSphere_Sphere_Roughness.webp",
+            "uri" : "PreviewSphere_Sphere_Metallic_webp-PreviewSphere_Sphere_Roughness_webp-1.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Normal.webp",
+            "uri" : "PreviewSphere_Sphere_Normal_webp-2.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_BaseColor.webp",
+            "uri" : "PreviewSphere_Sphere_BaseColor_webp-2.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Metallic.webp-PreviewSphere_Sphere_Roughness.webp",
+            "uri" : "PreviewSphere_Sphere_Metallic_webp-PreviewSphere_Sphere_Roughness_webp-2.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Normal",
+            "uri" : "PreviewSphere_Sphere_Normal.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_BaseColor.webp",
+            "uri" : "PreviewSphere_Sphere_BaseColor_webp-3.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Metallic-PreviewSphere_Sphere_Roughness",
+            "uri" : "PreviewSphere_Sphere_Metallic-PreviewSphere_Sphere_Roughness.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Normal.webp",
+            "uri" : "PreviewSphere_Sphere_Normal_webp-3.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_BaseColor",
+            "uri" : "PreviewSphere_Sphere_BaseColor.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Metallic.webp-PreviewSphere_Sphere_Roughness.webp",
+            "uri" : "PreviewSphere_Sphere_Metallic_webp-PreviewSphere_Sphere_Roughness_webp-3.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Normal.webp",
+            "uri" : "PreviewSphere_Sphere_Normal_webp-4.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_BaseColor.webp",
+            "uri" : "PreviewSphere_Sphere_BaseColor_webp-4.webp"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PreviewSphere_Sphere_Metallic.webp-PreviewSphere_Sphere_Roughness.webp",
+            "uri" : "PreviewSphere_Sphere_Metallic_webp-PreviewSphere_Sphere_Roughness_webp-4.webp"
+        }
+    ],
+    "accessors" : [
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "max" : [
+                0.988581657409668,
+                1.0000001192092896,
+                0.9642330408096313
+            ],
+            "min" : [
+                -0.9885817170143127,
+                -1,
+                -0.9642329812049866
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 121110,
+            "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "max" : [
+                0.988581657409668,
+                1.0000001192092896,
+                0.9642330408096313
+            ],
+            "min" : [
+                -0.9885817170143127,
+                -1,
+                -0.9642329812049866
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "max" : [
+                0.988581657409668,
+                1.0000001192092896,
+                0.9642330408096313
+            ],
+            "min" : [
+                -0.9885817170143127,
+                -1,
+                -0.9642329812049866
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "max" : [
+                0.988581657409668,
+                1.0000001192092896,
+                0.9642330408096313
+            ],
+            "min" : [
+                -0.9885817170143127,
+                -1,
+                -0.9642329812049866
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "max" : [
+                0.988581657409668,
+                1.0000001192092896,
+                0.9642330408096313
+            ],
+            "min" : [
+                -0.9885817170143127,
+                -1,
+                -0.9642329812049866
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "max" : [
+                0.988581657409668,
+                1.0000001192092896,
+                0.9642330408096313
+            ],
+            "min" : [
+                -0.9885817170143127,
+                -1,
+                -0.9642329812049866
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 25742,
+            "type" : "VEC2"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 123823,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 123823,
+            "byteOffset" : 123824
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 123823,
+            "byteOffset" : 247648
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 123823,
+            "byteOffset" : 371472
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 123823,
+            "byteOffset" : 495296
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 123823,
+            "byteOffset" : 619120
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 742944,
+            "uri" : "objects.bin"
+        }
+    ]
+}

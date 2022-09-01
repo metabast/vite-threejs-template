@@ -3,6 +3,7 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
 import Content from './Content.js';
 import Resize from '../../commons/Resize.js'
 import Stats from '../../commons/Stats.js';
+import { sRGBEncoding } from 'three';
 
 class World{
 	constructor() {
@@ -20,10 +21,11 @@ class World{
 			antialias: true,
 		});
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
+		this.renderer.outputEncoding = sRGBEncoding;
 
 		this.control = new OrbitControls(this.camera, this.renderer.domElement)
 		this.control.enableDamping = true;
-		this.camera.position.set( 0, 0, 2 );
+		this.camera.position.set( 0, 0, 4 );
 
 		this.clock = new THREE.Clock();
 
