@@ -47,11 +47,14 @@ class Content{
                 let matCloned = child.material.clone();
                 // console.log(matCloned);
                 child.material = torusKnotMaterial.clone();
+                console.log(child.material);
                 child.material.map = matCloned.map;
+                child.material.flatShading = true;
                 child.material.normalMap = matCloned.normalMap;
                 let customUniforms = {
                     uRoughnessMap : {value: matCloned.roughnessMap},
                     uMetalnessMap : {value: matCloned.metalnessMap},
+                    uPower : {value: 10},
                 };
                 child.material.onBeforeCompile = (shader) => {
                     // console.log(shader);
@@ -61,6 +64,7 @@ class Content{
                         `
                         uniform vec3 diffuse;
                         uniform sampler2D uRoughnessMap;
+                        uniform float uPower;
                         `
                     );
                     shader.fragmentShader = shader.fragmentShader.replace(
@@ -69,7 +73,7 @@ class Content{
                         vec4 roughnessMap = texture2D( uRoughnessMap, vUv );
                         vec3 outgoingLight = diffuseColor.rgb * matcapColor.rgb  * roughnessMap.g;
                         // outgoingLight = diffuseColor.rgb * (matcapColor.rgb * vec3(roughnessMap.g) * 3.);
-                        outgoingLight = diffuseColor.rgb *(matcapColor.rgb * vec3(roughnessMap.g))* 2.;
+                        outgoingLight = diffuseColor.rgb *(matcapColor.rgb * vec3(roughnessMap.g))* uPower;
                         `
                     );
                 };
