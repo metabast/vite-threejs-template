@@ -4,6 +4,7 @@ import World from './World';
 import {DRACOLoader} from "three/examples/jsm/loaders/DRACOLoader.js";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DoubleSide, MeshMatcapMaterial } from 'three';
+import store from '../../store';
 
 
 
@@ -19,7 +20,8 @@ const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
 class Content{
     constructor(){
         this.scene = World.getInstance().scene;
-        // this.scene.add(torusKnot);
+        torusKnot.rotation.y = 90 * (180 / Math.PI )
+        this.scene.add(torusKnot);
 
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
         this.scene.add( directionalLight );
@@ -32,6 +34,17 @@ class Content{
         // this.dracoLoader.setDecoderConfig({ type: 'js' });
         this.loader.setDRACOLoader(this.dracoLoader);
         this.loader.load( './objects.gltf', this.onLoad.bind(this));
+
+        Events.on('object:visible:update', this.onObjectVisibilityUpdated.bind(this));
+    }
+
+    onObjectVisibilityUpdated() {
+        torusKnot.visible = store.state.models.visible.torusKnot;
+        if(this.models.length){
+            this.models.forEach(model => {
+                model.visible = store.state.models.visible.spheres;
+            });
+        }
     }
 
     onLoad(gltf) {
@@ -51,14 +64,14 @@ class Content{
                 child.material.map = matCloned.map;
                 child.material.flatShading = true;
                 child.material.normalMap = matCloned.normalMap;
-                let customUniforms = {
+                child.customUniforms = {
                     uRoughnessMap : {value: matCloned.roughnessMap},
                     uMetalnessMap : {value: matCloned.metalnessMap},
-                    uPower : {value: 10},
+                    uPower : {value: store.state.models.power},
                 };
                 child.material.onBeforeCompile = (shader) => {
                     // console.log(shader);
-                    shader.uniforms = Object.assign(shader.uniforms, customUniforms);
+                    shader.uniforms = Object.assign(shader.uniforms, child.customUniforms);
                     shader.fragmentShader = shader.fragmentShader.replace(
                         'uniform vec3 diffuse;',
                         `
@@ -78,10 +91,22 @@ class Content{
                     );
                 };
                 // child.material.matcap = matcapLoader;
+                child.visible = false;
                 this.models.push(child);
             }
         });
         this.scene.add(gltf.scene);
+
+        Events.on('object:power:update', this.onObjectPowerUpdate.bind(this));
+    }
+
+    onObjectPowerUpdate() {
+        if(this.models.length){
+            this.models.forEach(model => {
+                model.customUniforms.uPower.value = store.state.models.power;
+                console.log(model.customUniforms.uPower.value);
+            });
+        }
     }
     
     onmatcapUpdated(matcapURL){

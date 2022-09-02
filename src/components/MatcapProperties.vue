@@ -177,6 +177,17 @@ Events.on('matcap:content:ready', (content)=>{
 
 });
 
+let grObjects = gui.add( 'group', { name:'Objects', h:30 });
+grObjects.add( store.state.models.visible, 'torusKnot').onChange( ()=>{
+    Events.emit('object:visible:update');
+} );
+grObjects.add( store.state.models.visible, 'spheres').onChange( ()=>{
+    Events.emit('object:visible:update');
+} );
+grObjects.add( store.state.models, { name:'Power', value:store.state.models.power, min:0, max:10, h:25 }).onChange((value)=>{
+    store.state.models.power = value;
+    Events.emit('object:power:update');
+})
 </script>
 
 <template>

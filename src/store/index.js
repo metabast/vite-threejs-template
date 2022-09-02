@@ -18,7 +18,7 @@ const store = createStore({
                 },
                 ambiant: {
                     color: new Color(),
-                    intensity: 0.004,
+                    intensity: 0, //0.004
                 },
                 create : {
                     front: true,
@@ -33,7 +33,14 @@ const store = createStore({
                 },
                 lights : [],
                 isUILightVisible: true,
-            }
+            },
+            models: {
+                visible: {
+                    torusKnot: true,
+                    spheres: false
+                },
+                power: 10,
+            },
         };
     },
     mutations: {
