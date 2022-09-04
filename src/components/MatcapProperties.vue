@@ -184,8 +184,8 @@ grObjects.add( store.state.models.visible, 'torusKnot').onChange( ()=>{
 grObjects.add( store.state.models.visible, 'spheres').onChange( ()=>{
     Events.emit('object:visible:update');
 } );
-grObjects.add( store.state.models, { name:'Power', value:store.state.models.power, min:0, max:10, h:25 }).onChange((value)=>{
-    store.state.models.power = value;
+grObjects.add( store.state.models, 'power', {  min:0, max:10, h:25 }).onChange((value)=>{
+    // store.state.models.power = value;
     Events.emit('object:power:update');
 })
 </script>

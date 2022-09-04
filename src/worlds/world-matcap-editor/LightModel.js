@@ -63,7 +63,6 @@ class LightModel{
 
     set positionTargetX(value) {
         this._positionTarget.x = value;
-        console.log(this._positionTarget);
         if(this._lookAtTarget) {
             this._light.lookAt(this._positionTarget);
         }

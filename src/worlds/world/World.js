@@ -21,7 +21,7 @@ class World{
 			antialias: true,
 		});
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
-		this.renderer.outputEncoding = sRGBEncoding;
+		// this.renderer.outputEncoding = sRGBEncoding;
 
 		this.control = new OrbitControls(this.camera, this.renderer.domElement)
 		this.control.enableDamping = true;

@@ -15,12 +15,14 @@ const standardLoader = new THREE.TextureLoader();
 standardMat.map = standardLoader;
 const matcapLoader = new THREE.TextureLoader();
 torusKnotMaterial.matcap = matcapLoader;
+console.log(torusKnotMaterial);
 const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
 
 class Content{
     constructor(){
         this.scene = World.getInstance().scene;
-        torusKnot.rotation.y = 90 * (180 / Math.PI )
+        torusKnot.rotation.y = 90 * (180 / Math.PI );
+        torusKnot.scale.set(2,2,2)
         this.scene.add(torusKnot);
 
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
@@ -60,7 +62,7 @@ class Content{
                 let matCloned = child.material.clone();
                 // console.log(matCloned);
                 child.material = torusKnotMaterial.clone();
-                console.log(child.material);
+                // console.log(child.material);
                 child.material.map = matCloned.map;
                 child.material.flatShading = true;
                 child.material.normalMap = matCloned.normalMap;
@@ -104,7 +106,6 @@ class Content{
         if(this.models.length){
             this.models.forEach(model => {
                 model.customUniforms.uPower.value = store.state.models.power;
-                console.log(model.customUniforms.uPower.value);
             });
         }
     }
