@@ -60,15 +60,15 @@ class Content{
         this.scene.add(sphereNormal);
 
         this.ambiantLight = new THREE.AmbientLight( 0x000000 );
-		this.ambiantLight.intensity = store.state.matcapEditor.ambiant.intensity;
-		this.ambiantLight.color = store.state.matcapEditor.ambiant.color;
-		this.scene.add( this.ambiantLight );
+        this.ambiantLight.intensity = store.state.matcapEditor.ambiant.intensity;
+        this.ambiantLight.color = store.state.matcapEditor.ambiant.color;
+        this.scene.add( this.ambiantLight );
 
-		Events.on('matcap:ambiant:update', () => {
-			this.ambiantLight.intensity = store.state.matcapEditor.ambiant.intensity;
-			this.ambiantLight.color = store.state.matcapEditor.ambiant.color;
+        Events.on('matcap:ambiant:update', () => {
+            this.ambiantLight.intensity = store.state.matcapEditor.ambiant.intensity;
+            this.ambiantLight.color = store.state.matcapEditor.ambiant.color;
             this.snapshot();
-		});
+        });
 
         this.arrowHelper = new THREE.ArrowHelper( new Vector3(), new Vector3(), this.length, '#ff0000' );
         this.scene.add( this.arrowHelper );
@@ -134,10 +134,10 @@ class Content{
         let hits2, hit2;
 
         if(hit.object == sphereNormal){
-            this.arrowHelper.setColor("#e5ff00")
+            this.arrowHelper.setColor('#e5ff00')
             raycaster.set(hit.point, new Vector3().subVectors(new Vector3(), hit.point).normalize());
         }else if(hit.object === plane){
-            this.arrowHelper.setColor("#00ffee")
+            this.arrowHelper.setColor('#00ffee')
             raycaster.set(hit.point, new Vector3().subVectors(new Vector3(), hit.point).normalize());
         }
         hits2 = raycaster.intersectObject(sphereRender);

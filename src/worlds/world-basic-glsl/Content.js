@@ -37,14 +37,14 @@ const meshRaw = new THREE.Mesh(geometryRaw, matRawShader);
 meshRaw.position.x = .51;
 
 function Content(scene){
-	scene.add(mesh);
+    scene.add(mesh);
     scene.add(meshRaw);
-	return {
-		update(clock){
+    return {
+        update(clock){
             matShader.uniforms.uTime.value = clock.getElapsedTime();
             matRawShader.uniforms.uTime.value = clock.getElapsedTime();
-		}
-	}
+        }
+    }
 }
 
 export default Content;

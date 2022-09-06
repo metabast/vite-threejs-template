@@ -13,7 +13,7 @@ if (import.meta.hot) {
 let lights = store.state.matcapEditor.lights;
 onMounted(()=>{});
 let currentLight = null;
-const state = reactive({ isVisible: true })
+const state = reactive({ isVisible: true });
 
 const lightAdded = (lightModel)=>{
     updateCurrentLight(lightModel);
@@ -38,7 +38,7 @@ const onMouseDown = (event, lightModel)=>{
     store.state.matcapEditor.isUILightVisible = false;
     updateCurrentLight(lightModel);
     Events.emit('matcap:light:update:current', lightModel);
-    Events.emit("matcap:light:startMoving", lightModel);
+    Events.emit('matcap:light:startMoving', lightModel);
 }
 
 const getMatcapLightsStyle = ()=>{
@@ -53,18 +53,22 @@ Events.on('matcap:editor:light:added', lightAdded);
 </script>
 
 <template>
-    <div >
-        <div id="matcapLights" :style="getMatcapLightsStyle()" v-if="store.state.matcapEditor.isUILightVisible">
-            <div 
-                v-for="light, index in store.state.matcapEditor.lights"
-                :key="index"
-                class="light" 
-                :style="getCSSPosition(light)"
-                @mousedown="onMouseDown($event, light)"
-            ></div>
-        </div>
-        <MatcapProperties />
+  <div>
+    <div
+      v-if="store.state.matcapEditor.isUILightVisible"
+      id="matcapLights"
+      :style="getMatcapLightsStyle()"
+    >
+      <div 
+        v-for="light, index in store.state.matcapEditor.lights"
+        :key="index"
+        class="light" 
+        :style="getCSSPosition(light)"
+        @mousedown="onMouseDown($event, light)"
+      />
     </div>
+    <MatcapProperties />
+  </div>
 </template>
 
 <style>

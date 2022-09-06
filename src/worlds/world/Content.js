@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import Events from '../../commons/Events';
 import World from './World';
-import {DRACOLoader} from "three/examples/jsm/loaders/DRACOLoader.js";
-import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader.js";
+import {DRACOLoader} from 'three/examples/jsm/loaders/DRACOLoader.js';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DoubleSide, MeshMatcapMaterial } from 'three';
 import store from '../../store';
 

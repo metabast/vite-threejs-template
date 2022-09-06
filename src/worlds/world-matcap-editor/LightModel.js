@@ -1,13 +1,15 @@
-import { Vector2, Vector3 } from "three";
+import { Vector2, Vector3 } from 'three';
 
 class LightModel{
-    _light;
-    _screenPosition = new Vector2();
-    _distance = 0;
-    _sphereFaceNormal;
-    _positionOnSphere;
-    _positionTarget = new Vector3(0,0,0);
-    _lookAtTarget = true;
+    constructor(){
+        this._light = null;
+        this._screenPosition = new Vector2();
+        this._distance = 0;
+        this._sphereFaceNormal = null;
+        this._positionOnSphere = null;
+        this._positionTarget = new Vector3(0,0,0);
+        this._lookAtTarget = true;
+    }
 
     get light() {
         return this._light;

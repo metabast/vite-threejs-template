@@ -1,11 +1,11 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import Engine from './components/Engine.vue'
+import Engine3D from './components/Engine3D.vue'
 </script>
 
 <template>
-  <Engine/>
+  <Engine3D />
 </template>
 
 <style>

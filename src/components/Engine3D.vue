@@ -4,7 +4,7 @@ import WorldMatcapPreview from '../worlds/world/World.js'
 import WorldMatcapEditor from '../worlds/world-matcap-editor/World.js' 
 import Events from '../commons/Events.js';
 import MatcapLights from './MatcapLights.vue';
-import  SceneProperties from './SceneProperties.vue';
+import SceneProperties from './SceneProperties.vue';
 import store from '../store/index.js';
 
 if (import.meta.hot) {
@@ -14,26 +14,30 @@ if (import.meta.hot) {
 }
 
 onMounted (()=>{
-  WorldMatcapPreview.getInstance().init();
-  WorldMatcapEditor.getInstance().init();
+    WorldMatcapPreview.getInstance().init();
+    WorldMatcapEditor.getInstance().init();
 })
 
 const onMouseOverWorldMatcapPreview = (event)=>{
-  Events.emit("focus:changed", "world-matcap-preview");
+    Events.emit('focus:changed', 'world-matcap-preview');
 }
 
 const onMouseOverWorldMatcapEditor= (event)=>{
-  Events.emit("focus:changed", "world-matcap-editor");
+    Events.emit('focus:changed', 'world-matcap-editor');
 }
 
 </script>
 
 <template>
-  <canvas class="webgl"></canvas>
-  <canvas class="webgl2" :width="store.state.matcapEditor.sizes.exportDefault" :height="store.state.matcapEditor.sizes.exportDefault"></canvas>
-  <MatcapLights/>
+  <canvas class="webgl" />
+  <canvas
+    class="webgl2"
+    :width="store.state.matcapEditor.sizes.exportDefault"
+    :height="store.state.matcapEditor.sizes.exportDefault"
+  />
+  <MatcapLights />
   <SceneProperties />
-  
+  <div v-html="store.state.matcapEditor.sizes.exportDefault" />
 </template>
 
 <style scoped>
