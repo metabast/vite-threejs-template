@@ -14,10 +14,10 @@ if (import.meta.hot) {
 const lights = store.state.matcapEditor.lights;
 const gui = new Gui({css:`
     top: 50px;
-    left: 10px;
+    left: 0px;
 `, w:200});
 
-    let grObjects = gui.add( 'group', { name:'Objects', h:30 });
+let grObjects = gui.add( 'group', { name:'Objects', h:30 });
 grObjects.add( store.state.models.visible, 'torusKnot').onChange( ()=>{
     Events.emit('object:visible:update');
 } );
@@ -28,5 +28,6 @@ grObjects.add( store.state.models, 'power', {  min:0, max:10, h:25 }).onChange((
     // store.state.models.power = value;
     Events.emit('object:power:update');
 })
+grObjects.open();
 
-    </script>
+</script>
