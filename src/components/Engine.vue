@@ -4,6 +4,7 @@ import WorldMatcapPreview from '../worlds/world/World.js'
 import WorldMatcapEditor from '../worlds/world-matcap-editor/World.js' 
 import Events from '../commons/Events.js';
 import MatcapLights from './MatcapLights.vue';
+import  SceneProperties from './SceneProperties.vue';
 import store from '../store/index.js';
 
 if (import.meta.hot) {
@@ -31,6 +32,8 @@ const onMouseOverWorldMatcapEditor= (event)=>{
   <canvas class="webgl"></canvas>
   <canvas class="webgl2" :width="store.state.matcapEditor.sizes.exportDefault" :height="store.state.matcapEditor.sizes.exportDefault"></canvas>
   <MatcapLights/>
+  <SceneProperties />
+  
 </template>
 
 <style scoped>
