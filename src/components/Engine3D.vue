@@ -1,11 +1,7 @@
 <script setup>
 import {onMounted} from 'vue';
-import WorldMatcapPreview from '../worlds/world/World.js' 
-import WorldMatcapEditor from '../worlds/world-matcap-editor/World.js' 
+import World from '../worlds/world-basic-glsl/World.js' 
 import Events from '../commons/Events.js';
-import MatcapLights from './MatcapLights.vue';
-import SceneProperties from './SceneProperties.vue';
-import store from '../store/index.js';
 
 if (import.meta.hot) {
     import.meta.hot.dispose( (data) => {
@@ -14,8 +10,7 @@ if (import.meta.hot) {
 }
 
 onMounted (()=>{
-    WorldMatcapPreview.getInstance().init();
-    WorldMatcapEditor.getInstance().init();
+    new World();
 })
 
 const onMouseOverWorldMatcapPreview = (event)=>{
@@ -30,29 +25,11 @@ const onMouseOverWorldMatcapEditor= (event)=>{
 
 <template>
   <canvas class="webgl" />
-  <canvas
-    class="webgl2"
-    :width="store.state.matcapEditor.sizes.exportDefault"
-    :height="store.state.matcapEditor.sizes.exportDefault"
-  />
-  <MatcapLights />
-  <SceneProperties />
-  <div v-html="store.state.matcapEditor.sizes.exportDefault" />
 </template>
 
 <style scoped>
 .webgl{
   outline: none;
   background-color: white;
-}
-.webgl2{
-  position: absolute;
-  top: 0;
-  right: 0;
-  outline: none;
-  background-color: black;
-  width: 200px!important;
-  height: 200px!important;
-  border: 1px solid white;
 }
 </style>
