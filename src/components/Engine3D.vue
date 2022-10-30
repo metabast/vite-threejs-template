@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted} from 'vue';
-import World from '../worlds/world-basic-glsl/World.js' 
+import World from '../worlds/world-text-ure/World.js' 
 import Events from '../commons/Events.js';
 
 if (import.meta.hot) {
@@ -10,7 +10,7 @@ if (import.meta.hot) {
 }
 
 onMounted (()=>{
-    new World();
+    World.init();
 })
 
 const onMouseOverWorldMatcapPreview = (event)=>{
@@ -25,11 +25,24 @@ const onMouseOverWorldMatcapEditor= (event)=>{
 
 <template>
   <canvas class="webgl" />
+  <canvas
+    id="myCanvas"
+    width="1024"
+    height="1024"
+  />
 </template>
 
 <style scoped>
 .webgl{
   outline: none;
   background-color: white;
+}
+#myCanvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: beige;
+    width: 512px;
+    height: 512px;
 }
 </style>
