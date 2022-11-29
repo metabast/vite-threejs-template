@@ -39,10 +39,10 @@ const onMouseOverWorldMatcapEditor= (event)=>{
 }
 #myCanvas{
     position: absolute;
-    top: 0;
+    top: 100px;
     left: 0;
     background-color: beige;
-    width: 512px;
-    height: 512px;
+    width: 128px;
+    height: 128px;
 }
 </style>
