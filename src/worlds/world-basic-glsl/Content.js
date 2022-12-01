@@ -4,6 +4,8 @@ import * as THREE from 'three';
 import vertexShader from './shaders/default-vertex.glsl';
 import fragmentShader from './shaders/default-fragment.glsl';
 
+import store from '../../store';
+
 const matShader = new THREE.ShaderMaterial({
     uniforms:{
         uTime: {value: 1.0}
@@ -17,6 +19,9 @@ const matShader = new THREE.ShaderMaterial({
 const geometry = new THREE.PlaneGeometry(1, 1);
 const mesh = new THREE.Mesh(geometry, matShader);
 mesh.position.x = -.51;
+
+store.state.currentMesh.position = mesh.position;
+store.state.currentMesh.scale = mesh.scale;
 
 // SHADERS
 import vertexRawShader from './shaders/raw-vertex.glsl';

@@ -4,7 +4,10 @@ import { createStore } from 'vuex';
 const store = createStore({
     state() {
         return {
-            position: new Vector3(0, 0, 0),
+            currentMesh: {
+                position: new Vector3(0, 0, 0),
+                scale: new Vector3(1, 1, 1),
+            }
         };
     },
     mutations: {
