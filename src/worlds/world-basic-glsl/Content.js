@@ -36,13 +36,27 @@ const geometryRaw = new THREE.PlaneGeometry(1, 1);
 const meshRaw = new THREE.Mesh(geometryRaw, matRawShader);
 meshRaw.position.x = .51;
 
+const cubeGeometry = new THREE.BoxGeometry(1, 1, 1, 6,6,6);
+let v3 = new THREE.Vector3();
+THREE.BufferAttribute
+const pos = cubeGeometry.attributes.position;
+for(let i = 0; i < pos.count; i++){
+    v3.fromBufferAttribute(pos, i).normalize();
+    pos.setXYZ(i, v3.x, v3.y, v3.z);
+}
+cubeGeometry.computeVertexNormals();
+const cubeMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
+cubeMaterial.wireframe = true;
+const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+
 function Content(scene){
-    scene.add(mesh);
-    scene.add(meshRaw);
+    // scene.add(mesh);
+    // scene.add(meshRaw);
+    scene.add(cube);
     return {
         update(clock){
-            matShader.uniforms.uTime.value = clock.getElapsedTime();
-            matRawShader.uniforms.uTime.value = clock.getElapsedTime();
+            // matShader.uniforms.uTime.value = clock.getElapsedTime();
+            // matRawShader.uniforms.uTime.value = clock.getElapsedTime();
         }
     }
 }
